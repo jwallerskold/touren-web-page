@@ -35,7 +35,7 @@ export default function Admin() {
     if (success) {
       setIsAuthenticated(true)
     } else {
-      setError('Incorrect password')
+      setError('Fel lösenord')
     }
     setIsLoggingIn(false)
   }
@@ -49,18 +49,18 @@ export default function Admin() {
     return (
       <div className="max-w-md mx-auto mt-12">
         <div className="bg-white rounded-xl shadow-md p-8">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Admin Login</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Admin-inloggning</h1>
           <form onSubmit={handleLogin}>
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
+                Lösenord
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                placeholder="Enter admin password"
+                placeholder="Ange admin-lösenord"
               />
             </div>
             {error && (
@@ -71,7 +71,7 @@ export default function Admin() {
               disabled={isLoggingIn}
               className="w-full bg-green-700 text-white py-2 px-4 rounded-lg hover:bg-green-800 transition-colors disabled:bg-green-400"
             >
-              {isLoggingIn ? 'Logging in...' : 'Login'}
+              {isLoggingIn ? 'Loggar in...' : 'Logga in'}
             </button>
           </form>
         </div>
@@ -80,27 +80,27 @@ export default function Admin() {
   }
 
   if (isLoading) {
-    return <div className="text-center py-12">Loading...</div>
+    return <div className="text-center py-12">Laddar...</div>
   }
 
   const tabs = [
-    { id: 'players', label: 'Players' },
-    { id: 'tournaments', label: 'Tournaments' },
-    { id: 'results', label: 'Results' },
-    { id: 'punishments', label: 'Punishments' },
-    { id: 'rules', label: 'Rules' },
-    { id: 'settings', label: 'Settings' },
+    { id: 'players', label: 'Spelare' },
+    { id: 'tournaments', label: 'Tävlingar' },
+    { id: 'results', label: 'Resultat' },
+    { id: 'punishments', label: 'Straff' },
+    { id: 'rules', label: 'Regler' },
+    { id: 'settings', label: 'Inställningar' },
   ]
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Admin Panel</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Adminpanel</h1>
         <button
           onClick={handleLogout}
           className="text-gray-600 hover:text-gray-800"
         >
-          Logout
+          Logga ut
         </button>
       </div>
 
@@ -199,13 +199,13 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
   return (
     <div>
       <h2 className="text-xl font-bold text-gray-800 mb-4">
-        {editingId ? 'Edit Player' : 'Add New Player'}
+        {editingId ? 'Redigera spelare' : 'Lägg till ny spelare'}
       </h2>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Namn</label>
             <input
               type="text"
               value={formData.name}
@@ -231,7 +231,7 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
             type="submit"
             className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800"
           >
-            {editingId ? 'Update' : 'Add'} Player
+            {editingId ? 'Uppdatera' : 'Lägg till'} spelare
           </button>
           {editingId && (
             <button
@@ -239,20 +239,20 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
               onClick={cancelEdit}
               className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
             >
-              Cancel
+              Avbryt
             </button>
           )}
         </div>
       </form>
 
-      <h2 className="text-xl font-bold text-gray-800 mb-4">All Players ({players.length})</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Alla spelare ({players.length})</h2>
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <table className="w-full">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-3 text-left">Name</th>
+              <th className="px-4 py-3 text-left">Namn</th>
               <th className="px-4 py-3 text-center">Handicap</th>
-              <th className="px-4 py-3 text-right">Actions</th>
+              <th className="px-4 py-3 text-right">Åtgärder</th>
             </tr>
           </thead>
           <tbody>
@@ -265,17 +265,17 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
                     onClick={() => startEdit(player)}
                     className="text-blue-600 hover:text-blue-800 mr-3"
                   >
-                    Edit
+                    Redigera
                   </button>
                   <button
                     onClick={() => {
-                      if (confirm('Delete this player and all their data?')) {
+                      if (confirm('Ta bort denna spelare och all deras data?')) {
                         deletePlayer(player.id)
                       }
                     }}
                     className="text-red-600 hover:text-red-800"
                   >
-                    Delete
+                    Ta bort
                   </button>
                 </td>
               </tr>
@@ -332,13 +332,13 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
   return (
     <div>
       <h2 className="text-xl font-bold text-gray-800 mb-4">
-        {editingId ? 'Edit Tournament' : 'Add New Tournament'}
+        {editingId ? 'Redigera tävling' : 'Lägg till ny tävling'}
       </h2>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Namn</label>
             <input
               type="text"
               value={formData.name}
@@ -348,7 +348,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Course</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Bana</label>
             <input
               type="text"
               value={formData.course}
@@ -358,7 +358,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Datum</label>
             <input
               type="date"
               value={formData.date}
@@ -368,7 +368,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Ordning</label>
             <input
               type="number"
               value={formData.order}
@@ -378,7 +378,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Bild-URL</label>
             <input
               type="text"
               value={formData.imageUrl}
@@ -388,7 +388,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Beskrivning</label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -404,23 +404,23 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
                 onChange={(e) => setFormData({ ...formData, isFinale: e.target.checked })}
                 className="mr-2"
               />
-              <span className="text-sm font-medium text-gray-700">This is the Grand Finale</span>
+              <span className="text-sm font-medium text-gray-700">Detta är Grand Finale</span>
             </label>
           </div>
         </div>
         <div className="flex gap-2">
           <button type="submit" className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800">
-            {editingId ? 'Update' : 'Add'} Tournament
+            {editingId ? 'Uppdatera' : 'Lägg till'} tävling
           </button>
           {editingId && (
             <button type="button" onClick={cancelEdit} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg">
-              Cancel
+              Avbryt
             </button>
           )}
         </div>
       </form>
 
-      <h2 className="text-xl font-bold text-gray-800 mb-4">All Tournaments ({tournaments.length})</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Alla tävlingar ({tournaments.length})</h2>
       <div className="space-y-2">
         {sortedTournaments.map(tournament => (
           <div key={tournament.id} className="bg-white rounded-lg shadow-md p-4 flex justify-between items-center">
@@ -436,17 +436,17 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
             </div>
             <div>
               <button onClick={() => startEdit(tournament)} className="text-blue-600 hover:text-blue-800 mr-3">
-                Edit
+                Redigera
               </button>
               <button
                 onClick={() => {
-                  if (confirm('Delete this tournament and its results?')) {
+                  if (confirm('Ta bort denna tävling och dess resultat?')) {
                     deleteTournament(tournament.id)
                   }
                 }}
                 className="text-red-600 hover:text-red-800"
               >
-                Delete
+                Ta bort
               </button>
             </div>
           </div>
@@ -502,21 +502,21 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
       }))
 
     setTournamentResults(selectedTournament, validResults)
-    alert('Results saved!')
+    alert('Resultat sparade!')
   }
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Enter Results</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Registrera resultat</h2>
 
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Select Tournament</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Välj tävling</label>
         <select
           value={selectedTournament}
           onChange={(e) => setSelectedTournament(e.target.value)}
           className="w-full md:w-64 px-3 py-2 border border-gray-300 rounded-lg"
         >
-          <option value="">-- Select Tournament --</option>
+          <option value="">-- Välj tävling --</option>
           {sortedTournaments.map(t => (
             <option key={t.id} value={t.id}>
               {t.name} - {formatDate(t.date)}
@@ -530,12 +530,12 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
           <table className="w-full">
             <thead className="bg-gray-100">
               <tr>
-                <th className="px-3 py-2 text-left">Participated</th>
-                <th className="px-3 py-2 text-left">Player</th>
+                <th className="px-3 py-2 text-left">Deltog</th>
+                <th className="px-3 py-2 text-left">Spelare</th>
                 <th className="px-3 py-2 text-center">Pos</th>
-                <th className="px-3 py-2 text-center">Gross</th>
-                <th className="px-3 py-2 text-center">Net</th>
-                <th className="px-3 py-2 text-center">Points</th>
+                <th className="px-3 py-2 text-center">Brutto</th>
+                <th className="px-3 py-2 text-center">Netto</th>
+                <th className="px-3 py-2 text-center">Poäng</th>
               </tr>
             </thead>
             <tbody>
@@ -594,7 +594,7 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
               onClick={handleSave}
               className="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800"
             >
-              Save Results
+              Spara resultat
             </button>
           </div>
         </div>
@@ -622,26 +622,26 @@ function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishmen
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Add Punishment</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Lägg till straff</h2>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Player</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Spelare</label>
             <select
               value={formData.playerId}
               onChange={(e) => setFormData({ ...formData, playerId: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
               required
             >
-              <option value="">-- Select Player --</option>
+              <option value="">-- Välj spelare --</option>
               {players.map(p => (
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Amount (kr)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Belopp (kr)</label>
             <input
               type="number"
               value={formData.amount}
@@ -651,7 +651,7 @@ function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishmen
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Datum</label>
             <input
               type="date"
               value={formData.date}
@@ -661,32 +661,32 @@ function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishmen
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Reason</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Anledning</label>
             <input
               type="text"
               value={formData.reason}
               onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-              placeholder="e.g., 3-putt on hole 9"
+              placeholder="t.ex. 3-putt på hål 9"
               required
             />
           </div>
         </div>
         <button type="submit" className="bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-800">
-          Add Punishment
+          Lägg till straff
         </button>
       </form>
 
-      <h2 className="text-xl font-bold text-gray-800 mb-4">All Punishments ({punishments.length})</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Alla straff ({punishments.length})</h2>
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <table className="w-full">
           <thead className="bg-red-100">
             <tr>
-              <th className="px-4 py-3 text-left">Date</th>
-              <th className="px-4 py-3 text-left">Player</th>
-              <th className="px-4 py-3 text-left">Reason</th>
-              <th className="px-4 py-3 text-right">Amount</th>
-              <th className="px-4 py-3 text-right">Actions</th>
+              <th className="px-4 py-3 text-left">Datum</th>
+              <th className="px-4 py-3 text-left">Spelare</th>
+              <th className="px-4 py-3 text-left">Anledning</th>
+              <th className="px-4 py-3 text-right">Belopp</th>
+              <th className="px-4 py-3 text-right">Åtgärder</th>
             </tr>
           </thead>
           <tbody>
@@ -695,19 +695,19 @@ function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishmen
               return (
                 <tr key={punishment.id} className="border-t border-gray-100">
                   <td className="px-4 py-3 text-gray-600">{formatDate(punishment.date)}</td>
-                  <td className="px-4 py-3">{player?.name || 'Unknown'}</td>
+                  <td className="px-4 py-3">{player?.name || 'Okänd'}</td>
                   <td className="px-4 py-3 text-gray-600">{punishment.reason}</td>
                   <td className="px-4 py-3 text-right font-medium text-red-700">{punishment.amount} kr</td>
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => {
-                        if (confirm('Delete this punishment?')) {
+                        if (confirm('Ta bort detta straff?')) {
                           deletePunishment(punishment.id)
                         }
                       }}
                       className="text-red-600 hover:text-red-800"
                     >
-                      Delete
+                      Ta bort
                     </button>
                   </td>
                 </tr>
@@ -733,8 +733,8 @@ function RulesAdmin({ rules, saveRules }) {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Edit Rules</h2>
-      <p className="text-gray-600 mb-4">Use Markdown formatting (# for headers, - for lists, **bold**, etc.)</p>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Redigera regler</h2>
+      <p className="text-gray-600 mb-4">Använd Markdown-formatering (# för rubriker, - för listor, **fetstil**, etc.)</p>
 
       <div className="bg-white rounded-lg shadow-md p-6">
         <textarea
@@ -747,9 +747,9 @@ function RulesAdmin({ rules, saveRules }) {
             onClick={handleSave}
             className="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800"
           >
-            Save Rules
+            Spara regler
           </button>
-          {saved && <span className="text-green-600">Saved!</span>}
+          {saved && <span className="text-green-600">Sparat!</span>}
         </div>
       </div>
     </div>
@@ -760,31 +760,31 @@ function RulesAdmin({ rules, saveRules }) {
 function SettingsAdmin({ resetData }) {
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Settings</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Inställningar</h2>
 
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="font-bold text-gray-800 mb-2">Reset All Data</h3>
+        <h3 className="font-bold text-gray-800 mb-2">Återställ all data</h3>
         <p className="text-gray-600 mb-4">
-          This will reset all players, tournaments, results, and punishments to the initial sample data.
-          This action cannot be undone.
+          Detta återställer alla spelare, tävlingar, resultat och straff till ursprunglig exempeldata.
+          Denna åtgärd kan inte ångras.
         </p>
         <button
           onClick={() => {
-            if (confirm('Are you sure you want to reset ALL data? This cannot be undone!')) {
+            if (confirm('Är du säker på att du vill återställa ALL data? Detta kan inte ångras!')) {
               resetData()
-              alert('Data has been reset to initial state.')
+              alert('Data har återställts till ursprungligt tillstånd.')
             }
           }}
           className="bg-red-700 text-white px-6 py-2 rounded-lg hover:bg-red-800"
         >
-          Reset All Data
+          Återställ all data
         </button>
       </div>
 
       <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-        <h3 className="font-bold text-gray-800 mb-2">Admin Password</h3>
+        <h3 className="font-bold text-gray-800 mb-2">Admin-lösenord</h3>
         <p className="text-gray-600">
-          To change the admin password, edit <code className="bg-gray-100 px-1 rounded">server/data/config.json</code>
+          För att ändra admin-lösenordet, redigera <code className="bg-gray-100 px-1 rounded">server/data/config.json</code>
         </p>
       </div>
     </div>

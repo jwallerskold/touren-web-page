@@ -4,7 +4,7 @@ export default function Rules() {
   const { rules, isLoading } = useData()
 
   if (isLoading) {
-    return <div className="text-center py-12">Loading...</div>
+    return <div className="text-center py-12">Laddar...</div>
   }
 
   // Simple markdown-like rendering

@@ -13,7 +13,7 @@ export default function Leaderboard({ limit = null }) {
   if (leaderboard.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center text-gray-500">
-        No results yet
+        Inga resultat ännu
       </div>
     )
   }
@@ -24,11 +24,11 @@ export default function Leaderboard({ limit = null }) {
         <thead className="bg-green-800 text-white">
           <tr>
             <th className="px-4 py-3 text-left">#</th>
-            <th className="px-4 py-3 text-left">Player</th>
-            <th className="px-4 py-3 text-center">Points</th>
-            <th className="px-4 py-3 text-center hidden sm:table-cell">Rounds</th>
-            <th className="px-4 py-3 text-center hidden md:table-cell">Avg Score</th>
-            <th className="px-4 py-3 text-center hidden md:table-cell">Best Net</th>
+            <th className="px-4 py-3 text-left">Spelare</th>
+            <th className="px-4 py-3 text-center">Poäng</th>
+            <th className="px-4 py-3 text-center hidden sm:table-cell">Rundor</th>
+            <th className="px-4 py-3 text-center hidden md:table-cell">Snittslag</th>
+            <th className="px-4 py-3 text-center hidden md:table-cell">Bästa netto</th>
           </tr>
         </thead>
         <tbody>

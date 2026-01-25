@@ -7,7 +7,7 @@ export default function TournamentDetail() {
   const { tournaments, results, players, isLoading } = useData()
 
   if (isLoading) {
-    return <div className="text-center py-12">Loading...</div>
+    return <div className="text-center py-12">Laddar...</div>
   }
 
   const tournament = tournaments.find(t => t.id === id)
@@ -15,9 +15,9 @@ export default function TournamentDetail() {
   if (!tournament) {
     return (
       <div className="text-center py-12">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Tournament not found</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Tävlingen hittades inte</h1>
         <Link to="/tournaments" className="text-green-700 hover:text-green-800">
-          ← Back to tournaments
+          ← Tillbaka till tävlingar
         </Link>
       </div>
     )
@@ -36,7 +36,7 @@ export default function TournamentDetail() {
   return (
     <div>
       <Link to="/tournaments" className="text-green-700 hover:text-green-800 mb-4 inline-block">
-        ← Back to tournaments
+        ← Tillbaka till tävlingar
       </Link>
 
       {/* Tournament Header */}
@@ -77,7 +77,7 @@ export default function TournamentDetail() {
                   ? 'bg-gray-100 text-gray-600'
                   : 'bg-green-100 text-green-700'
               }`}>
-                {isPast ? 'Completed' : 'Upcoming'}
+                {isPast ? 'Avslutad' : 'Kommande'}
               </span>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function TournamentDetail() {
 
       {/* Results */}
       <section>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Results</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Resultat</h2>
 
         {tournamentResults.length > 0 ? (
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
@@ -95,10 +95,10 @@ export default function TournamentDetail() {
               <thead className="bg-green-800 text-white">
                 <tr>
                   <th className="px-4 py-3 text-left">Pos</th>
-                  <th className="px-4 py-3 text-left">Player</th>
-                  <th className="px-4 py-3 text-center">Gross</th>
-                  <th className="px-4 py-3 text-center">Net</th>
-                  <th className="px-4 py-3 text-center">Points</th>
+                  <th className="px-4 py-3 text-left">Spelare</th>
+                  <th className="px-4 py-3 text-center">Brutto</th>
+                  <th className="px-4 py-3 text-center">Netto</th>
+                  <th className="px-4 py-3 text-center">Poäng</th>
                 </tr>
               </thead>
               <tbody>
@@ -124,7 +124,7 @@ export default function TournamentDetail() {
                         to={`/stats/${result.playerId}`}
                         className="hover:text-green-700"
                       >
-                        {result.player?.name || 'Unknown'}
+                        {result.player?.name || 'Okänd'}
                       </Link>
                     </td>
                     <td className="px-4 py-3 text-center text-gray-600">
@@ -144,8 +144,8 @@ export default function TournamentDetail() {
         ) : (
           <div className="bg-white rounded-xl shadow-md p-8 text-center text-gray-500">
             {isPast
-              ? 'No results recorded for this tournament yet'
-              : 'Results will be available after the tournament'
+              ? 'Inga resultat registrerade för denna tävling ännu'
+              : 'Resultat kommer att finnas tillgängliga efter tävlingen'
             }
           </div>
         )}

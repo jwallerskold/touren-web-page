@@ -10,8 +10,8 @@ export default function Layout() {
       </main>
       <footer className="bg-green-800 text-white py-6 mt-auto">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p>Golf Tour 2025 - Grand Finale in Spain</p>
-          <p className="text-green-300 text-sm mt-1">May the best golfer win!</p>
+          <p>Touren</p>
+          <p className="text-green-300 text-sm mt-1">Est. 2025</p>
         </div>
       </footer>
     </div>

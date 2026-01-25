@@ -6,10 +6,10 @@ export default function Navbar() {
   const location = useLocation()
 
   const navLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/tournaments', label: 'Tournaments' },
-    { to: '/rules', label: 'Rules' },
-    { to: '/stats', label: 'Stats' },
+    { to: '/', label: 'Hem' },
+    { to: '/tournaments', label: 'Tävlingar' },
+    { to: '/rules', label: 'Regler' },
+    { to: '/stats', label: 'Statistik' },
   ]
 
   const isActive = (path) => location.pathname === path
@@ -21,7 +21,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl">&#9971;</span>
-            <span className="font-bold text-xl">Golf Tour 2025</span>
+            <span className="font-bold text-xl">Touren</span>
           </Link>
 
           {/* Desktop Navigation */}

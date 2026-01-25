@@ -9,18 +9,18 @@ export default function Stats() {
   const { players, isLoading } = useData()
 
   if (isLoading) {
-    return <div className="text-center py-12">Loading...</div>
+    return <div className="text-center py-12">Laddar...</div>
   }
 
   const tabs = [
-    { id: 'leaderboard', label: 'Leaderboard' },
-    { id: 'punishments', label: 'Punishment Board' },
-    { id: 'players', label: 'All Players' },
+    { id: 'leaderboard', label: 'Ställning' },
+    { id: 'punishments', label: 'Straffavgifter' },
+    { id: 'players', label: 'Alla spelare' },
   ]
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Statistics</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Statistik</h1>
 
       {/* Tabs */}
       <div className="flex border-b border-gray-200 mb-6">
@@ -43,7 +43,7 @@ export default function Stats() {
       {activeTab === 'leaderboard' && (
         <div>
           <p className="text-gray-600 mb-4">
-            Overall standings based on points accumulated throughout the season.
+            Total ställning baserad på poäng under säsongen.
           </p>
           <Leaderboard />
         </div>
@@ -52,7 +52,7 @@ export default function Stats() {
       {activeTab === 'punishments' && (
         <div>
           <p className="text-gray-600 mb-4">
-            Punishment fees collected throughout the season. All fees go to the finale celebration fund!
+            Straffavgifter samlade under säsongen. Alla avgifter går till finalfesten!
           </p>
           <PunishmentBoard />
         </div>
@@ -61,7 +61,7 @@ export default function Stats() {
       {activeTab === 'players' && (
         <div>
           <p className="text-gray-600 mb-4">
-            All registered players. Click on a player to see their individual stats.
+            Alla registrerade spelare. Klicka på en spelare för att se individuell statistik.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {players.map(player => (

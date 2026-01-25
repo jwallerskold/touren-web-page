@@ -7,7 +7,7 @@ export default function PlayerStats() {
   const { players, results, punishments, tournaments, isLoading } = useData()
 
   if (isLoading) {
-    return <div className="text-center py-12">Loading...</div>
+    return <div className="text-center py-12">Laddar...</div>
   }
 
   const playerStats = getPlayerStats(playerId, players, results, punishments, tournaments)
@@ -17,9 +17,9 @@ export default function PlayerStats() {
   if (!playerStats) {
     return (
       <div className="text-center py-12">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Player not found</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Spelare hittades inte</h1>
         <Link to="/stats" className="text-green-700 hover:text-green-800">
-          ← Back to stats
+          ← Tillbaka till statistik
         </Link>
       </div>
     )
@@ -28,7 +28,7 @@ export default function PlayerStats() {
   return (
     <div>
       <Link to="/stats" className="text-green-700 hover:text-green-800 mb-4 inline-block">
-        ← Back to stats
+        ← Tillbaka till statistik
       </Link>
 
       {/* Player Header */}
@@ -45,7 +45,7 @@ export default function PlayerStats() {
               rank === 3 ? 'bg-amber-100 text-amber-800' :
               'bg-green-50 text-green-800'
             }`}>
-              <p className="text-sm font-medium">Current Rank</p>
+              <p className="text-sm font-medium">Nuvarande placering</p>
               <p className="text-3xl font-bold">#{rank}</p>
             </div>
           )}
@@ -55,19 +55,19 @@ export default function PlayerStats() {
       {/* Stats Grid */}
       <div className="grid md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Total Points</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Totala poäng</p>
           <p className="text-3xl font-bold text-green-700">{playerStats.totalPoints}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Rounds Played</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Spelade rundor</p>
           <p className="text-3xl font-bold text-gray-800">{playerStats.roundsPlayed}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Avg Net Score</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Snitt nettoscore</p>
           <p className="text-3xl font-bold text-gray-800">{playerStats.avgScore}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Best Net Score</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Bästa nettoscore</p>
           <p className="text-3xl font-bold text-gray-800">{playerStats.bestNetScore}</p>
         </div>
       </div>
@@ -75,16 +75,16 @@ export default function PlayerStats() {
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Results History */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Round History</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Rundhistorik</h2>
           {playerStats.results.length > 0 ? (
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
               <table className="w-full">
                 <thead className="bg-green-800 text-white">
                   <tr>
-                    <th className="px-4 py-3 text-left">Tournament</th>
+                    <th className="px-4 py-3 text-left">Tävling</th>
                     <th className="px-4 py-3 text-center">Pos</th>
-                    <th className="px-4 py-3 text-center">Net</th>
-                    <th className="px-4 py-3 text-center">Pts</th>
+                    <th className="px-4 py-3 text-center">Netto</th>
+                    <th className="px-4 py-3 text-center">Poäng</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -122,16 +122,16 @@ export default function PlayerStats() {
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-md p-6 text-center text-gray-500">
-              No rounds played yet
+              Inga rundor spelade ännu
             </div>
           )}
         </section>
 
         {/* Punishments */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Punishment History</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Straffhistorik</h2>
           <div className="bg-red-50 rounded-xl p-4 mb-4">
-            <p className="text-sm text-red-600">Total Punishment Fees</p>
+            <p className="text-sm text-red-600">Totala straffavgifter</p>
             <p className="text-3xl font-bold text-red-700">{playerStats.totalPunishmentFees} kr</p>
           </div>
           {playerStats.punishments.length > 0 ? (
@@ -139,9 +139,9 @@ export default function PlayerStats() {
               <table className="w-full">
                 <thead className="bg-red-700 text-white">
                   <tr>
-                    <th className="px-4 py-3 text-left">Date</th>
-                    <th className="px-4 py-3 text-left">Reason</th>
-                    <th className="px-4 py-3 text-right">Amount</th>
+                    <th className="px-4 py-3 text-left">Datum</th>
+                    <th className="px-4 py-3 text-left">Anledning</th>
+                    <th className="px-4 py-3 text-right">Belopp</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -163,7 +163,7 @@ export default function PlayerStats() {
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-md p-6 text-center text-gray-500">
-              No punishments recorded - keep it up!
+              Inga straff registrerade - fortsätt så!
             </div>
           )}
         </section>

@@ -5,7 +5,7 @@ export default function Tournaments() {
   const { tournaments, isLoading } = useData()
 
   if (isLoading) {
-    return <div className="text-center py-12">Loading...</div>
+    return <div className="text-center py-12">Laddar...</div>
   }
 
   // Sort by order/date
@@ -13,9 +13,9 @@ export default function Tournaments() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-2">Tournaments</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-2">Tävlingar</h1>
       <p className="text-gray-600 mb-8">
-        {tournaments.length} rounds throughout the season, culminating in the grand finale!
+        {tournaments.length} rundor under säsongen, som kulminerar i Grand Finale!
       </p>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

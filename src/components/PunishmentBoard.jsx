@@ -16,7 +16,7 @@ export default function PunishmentBoard({ limit = null }) {
   if (board.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center text-gray-500">
-        No punishments recorded yet
+        Inga straffavgifter registrerade ännu
       </div>
     )
   }
@@ -27,10 +27,10 @@ export default function PunishmentBoard({ limit = null }) {
         <thead className="bg-red-700 text-white">
           <tr>
             <th className="px-4 py-3 text-left">#</th>
-            <th className="px-4 py-3 text-left">Player</th>
-            <th className="px-4 py-3 text-center">Total Fees</th>
-            <th className="px-4 py-3 text-center hidden sm:table-cell">Count</th>
-            <th className="px-4 py-3 text-left hidden md:table-cell">Latest Offense</th>
+            <th className="px-4 py-3 text-left">Spelare</th>
+            <th className="px-4 py-3 text-center">Totala avgifter</th>
+            <th className="px-4 py-3 text-center hidden sm:table-cell">Antal</th>
+            <th className="px-4 py-3 text-left hidden md:table-cell">Senaste förseelse</th>
           </tr>
         </thead>
         <tbody>
