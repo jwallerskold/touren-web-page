@@ -139,7 +139,7 @@ export default function PlayerStats() {
               <table className="w-full">
                 <thead className="bg-red-700 text-white">
                   <tr>
-                    <th className="px-4 py-3 text-left">Datum</th>
+                    <th className="px-4 py-3 text-left">Tävling</th>
                     <th className="px-4 py-3 text-left">Anledning</th>
                     <th className="px-4 py-3 text-right">Belopp</th>
                   </tr>
@@ -148,7 +148,7 @@ export default function PlayerStats() {
                   {playerStats.punishments.map(punishment => (
                     <tr key={punishment.id} className="border-b border-gray-100">
                       <td className="px-4 py-3 text-gray-600">
-                        {formatDate(punishment.date)}
+                        {punishment.tournamentName}
                       </td>
                       <td className="px-4 py-3 text-gray-800">
                         {punishment.reason}

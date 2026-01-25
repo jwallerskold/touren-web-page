@@ -24,14 +24,22 @@ export function calculateLeaderboard(players, results) {
 }
 
 // Calculate punishment totals per player
-export function calculatePunishmentBoard(players, punishments) {
+export function calculatePunishmentBoard(players, punishments, tournaments = []) {
   const playerPunishments = players.map(player => {
     const playerPuns = punishments.filter(p => p.playerId === player.id)
     const totalFees = playerPuns.reduce((sum, p) => sum + p.amount, 0)
     const count = playerPuns.length
-    const latestOffense = playerPuns.length > 0
-      ? playerPuns.sort((a, b) => new Date(b.date) - new Date(a.date))[0].reason
-      : '-'
+
+    // Get latest offense with tournament info
+    let latestOffense = '-'
+    if (playerPuns.length > 0) {
+      // Sort by tournament order/date to find most recent
+      const sortedPuns = playerPuns.map(p => {
+        const tournament = tournaments.find(t => t.id === p.tournamentId)
+        return { ...p, tournamentOrder: tournament?.order || 0 }
+      }).sort((a, b) => b.tournamentOrder - a.tournamentOrder)
+      latestOffense = sortedPuns[0].reason
+    }
 
     return {
       ...player,
@@ -65,7 +73,16 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
 
   const playerPunishments = punishments
     .filter(p => p.playerId === playerId)
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .map(p => {
+      const tournament = tournaments.find(t => t.id === p.tournamentId)
+      return {
+        ...p,
+        tournamentName: tournament?.name || 'Okänd',
+        tournamentDate: tournament?.date || '',
+        tournamentOrder: tournament?.order || 0,
+      }
+    })
+    .sort((a, b) => b.tournamentOrder - a.tournamentOrder)
 
   const totalPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
   const roundsPlayed = playerResults.length

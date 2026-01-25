@@ -149,6 +149,7 @@ export default function Admin() {
       {activeTab === 'punishments' && (
         <PunishmentsAdmin
           players={players}
+          tournaments={tournaments}
           punishments={punishments}
           addPunishment={addPunishment}
           deletePunishment={deletePunishment}
@@ -604,21 +605,28 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
 }
 
 // Punishments Management
-function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishment }) {
-  const [formData, setFormData] = useState({ playerId: '', amount: '', reason: '', date: '' })
+function PunishmentsAdmin({ players, tournaments, punishments, addPunishment, deletePunishment }) {
+  const [formData, setFormData] = useState({ playerId: '', tournamentId: '', amount: '', reason: '' })
+
+  const sortedTournaments = [...tournaments].sort((a, b) => a.order - b.order)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     addPunishment({
       playerId: formData.playerId,
+      tournamentId: formData.tournamentId,
       amount: parseInt(formData.amount),
       reason: formData.reason,
-      date: formData.date,
     })
-    setFormData({ playerId: '', amount: '', reason: '', date: '' })
+    setFormData({ playerId: '', tournamentId: '', amount: '', reason: '' })
   }
 
-  const sortedPunishments = [...punishments].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const sortedPunishments = [...punishments]
+    .map(p => {
+      const tournament = tournaments.find(t => t.id === p.tournamentId)
+      return { ...p, tournamentName: tournament?.name || 'Okänd', tournamentOrder: tournament?.order || 0 }
+    })
+    .sort((a, b) => b.tournamentOrder - a.tournamentOrder)
 
   return (
     <div>
@@ -651,14 +659,18 @@ function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishmen
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Datum</label>
-            <input
-              type="date"
-              value={formData.date}
-              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+            <label className="block text-sm font-medium text-gray-700 mb-1">Tävling</label>
+            <select
+              value={formData.tournamentId}
+              onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
               required
-            />
+            >
+              <option value="">-- Välj tävling --</option>
+              {sortedTournaments.map(t => (
+                <option key={t.id} value={t.id}>{t.name}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Anledning</label>
@@ -682,7 +694,7 @@ function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishmen
         <table className="w-full">
           <thead className="bg-red-100">
             <tr>
-              <th className="px-4 py-3 text-left">Datum</th>
+              <th className="px-4 py-3 text-left">Tävling</th>
               <th className="px-4 py-3 text-left">Spelare</th>
               <th className="px-4 py-3 text-left">Anledning</th>
               <th className="px-4 py-3 text-right">Belopp</th>
@@ -694,7 +706,7 @@ function PunishmentsAdmin({ players, punishments, addPunishment, deletePunishmen
               const player = players.find(p => p.id === punishment.playerId)
               return (
                 <tr key={punishment.id} className="border-t border-gray-100">
-                  <td className="px-4 py-3 text-gray-600">{formatDate(punishment.date)}</td>
+                  <td className="px-4 py-3 text-gray-600">{punishment.tournamentName}</td>
                   <td className="px-4 py-3">{player?.name || 'Okänd'}</td>
                   <td className="px-4 py-3 text-gray-600">{punishment.reason}</td>
                   <td className="px-4 py-3 text-right font-medium text-red-700">{punishment.amount} kr</td>

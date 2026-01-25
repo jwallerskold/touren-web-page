@@ -17,24 +17,29 @@ export default function Home() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-700 to-green-900 text-white rounded-2xl p-8 md:p-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">Touren</h1>
-        <p className="text-xl text-green-100 mb-6">
-          Månatliga tävlingar som leder upp till Grand Finale i Spanien!
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link
-            to="/tournaments"
-            className="bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors"
-          >
-            Visa tävlingar
-          </Link>
-          <Link
-            to="/stats"
-            className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors"
-          >
-            Se ställningen
-          </Link>
+      <section className="relative rounded-2xl overflow-hidden">
+        <img
+          src="/images/home-page/team-photo-2025.jpg"
+          alt="Touren 2025"
+          className="w-full h-64 md:h-96 object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Touren</h1>
+          <div className="flex flex-wrap gap-4">
+            <Link
+              to="/tournaments"
+              className="bg-white text-green-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors"
+            >
+              Visa tävlingar
+            </Link>
+            <Link
+              to="/stats"
+              className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-500 transition-colors"
+            >
+              Se ställningen
+            </Link>
+          </div>
         </div>
       </section>
 
