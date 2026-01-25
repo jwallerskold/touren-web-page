@@ -1,21 +1,8 @@
-import { createContext, useContext, useState, useEffect } from 'react'
-import { initialPlayers } from '../data/initialPlayers'
-import { initialTournaments } from '../data/initialTournaments'
-import { initialResults } from '../data/initialResults'
-import { initialPunishments } from '../data/initialPunishments'
-import { initialRules } from '../data/initialRules'
-import { generateId } from '../utils/calculations'
+import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 
 const DataContext = createContext()
 
-const STORAGE_KEYS = {
-  players: 'golfTour_players',
-  tournaments: 'golfTour_tournaments',
-  results: 'golfTour_results',
-  punishments: 'golfTour_punishments',
-  rules: 'golfTour_rules',
-  initialized: 'golfTour_initialized',
-}
+const API_URL = 'http://localhost:3001/api'
 
 export function DataProvider({ children }) {
   const [players, setPlayers] = useState([])
@@ -24,149 +11,163 @@ export function DataProvider({ children }) {
   const [punishments, setPunishments] = useState([])
   const [rules, setRules] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  // Load data from localStorage on mount
-  useEffect(() => {
-    const isInitialized = localStorage.getItem(STORAGE_KEYS.initialized)
+  // Admin password stored in session
+  const getAdminPassword = () => sessionStorage.getItem('adminPassword') || ''
 
-    if (isInitialized) {
-      // Load existing data
-      setPlayers(JSON.parse(localStorage.getItem(STORAGE_KEYS.players) || '[]'))
-      setTournaments(JSON.parse(localStorage.getItem(STORAGE_KEYS.tournaments) || '[]'))
-      setResults(JSON.parse(localStorage.getItem(STORAGE_KEYS.results) || '[]'))
-      setPunishments(JSON.parse(localStorage.getItem(STORAGE_KEYS.punishments) || '[]'))
-      setRules(localStorage.getItem(STORAGE_KEYS.rules) || '')
-    } else {
-      // Initialize with seed data
-      setPlayers(initialPlayers)
-      setTournaments(initialTournaments)
-      setResults(initialResults)
-      setPunishments(initialPunishments)
-      setRules(initialRules)
-
-      // Save to localStorage
-      localStorage.setItem(STORAGE_KEYS.players, JSON.stringify(initialPlayers))
-      localStorage.setItem(STORAGE_KEYS.tournaments, JSON.stringify(initialTournaments))
-      localStorage.setItem(STORAGE_KEYS.results, JSON.stringify(initialResults))
-      localStorage.setItem(STORAGE_KEYS.punishments, JSON.stringify(initialPunishments))
-      localStorage.setItem(STORAGE_KEYS.rules, initialRules)
-      localStorage.setItem(STORAGE_KEYS.initialized, 'true')
+  // Fetch all data from server
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      setError(null)
+      const response = await fetch(`${API_URL}/data`)
+      if (!response.ok) throw new Error('Failed to fetch data')
+      const data = await response.json()
+      setPlayers(data.players)
+      setTournaments(data.tournaments)
+      setResults(data.results)
+      setPunishments(data.punishments)
+      setRules(data.rules)
+    } catch (err) {
+      setError(err.message)
+      console.error('Error fetching data:', err)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }, [])
 
-  // Save helpers
-  const savePlayers = (newPlayers) => {
-    setPlayers(newPlayers)
-    localStorage.setItem(STORAGE_KEYS.players, JSON.stringify(newPlayers))
+  // Load data on mount
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
+  // Helper for authenticated requests
+  const authFetch = async (url, options = {}) => {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-password': getAdminPassword(),
+        ...options.headers,
+      },
+    })
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ error: 'Request failed' }))
+      throw new Error(error.error || 'Request failed')
+    }
+    return response.json()
   }
 
-  const saveTournaments = (newTournaments) => {
-    setTournaments(newTournaments)
-    localStorage.setItem(STORAGE_KEYS.tournaments, JSON.stringify(newTournaments))
-  }
-
-  const saveResults = (newResults) => {
-    setResults(newResults)
-    localStorage.setItem(STORAGE_KEYS.results, JSON.stringify(newResults))
-  }
-
-  const savePunishments = (newPunishments) => {
-    setPunishments(newPunishments)
-    localStorage.setItem(STORAGE_KEYS.punishments, JSON.stringify(newPunishments))
-  }
-
-  const saveRules = (newRules) => {
-    setRules(newRules)
-    localStorage.setItem(STORAGE_KEYS.rules, newRules)
+  // Verify admin password
+  const verifyPassword = async (password) => {
+    try {
+      const response = await fetch(`${API_URL}/auth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      })
+      const data = await response.json()
+      if (data.success) {
+        sessionStorage.setItem('adminPassword', password)
+        return true
+      }
+      return false
+    } catch (err) {
+      console.error('Auth error:', err)
+      return false
+    }
   }
 
   // CRUD operations for Players
-  const addPlayer = (player) => {
-    const newPlayer = { ...player, id: generateId('player') }
-    savePlayers([...players, newPlayer])
+  const addPlayer = async (player) => {
+    const newPlayer = await authFetch(`${API_URL}/players`, {
+      method: 'POST',
+      body: JSON.stringify(player),
+    })
+    setPlayers(prev => [...prev, newPlayer])
     return newPlayer
   }
 
-  const updatePlayer = (id, updates) => {
-    savePlayers(players.map(p => p.id === id ? { ...p, ...updates } : p))
+  const updatePlayer = async (id, updates) => {
+    const updated = await authFetch(`${API_URL}/players/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(updates),
+    })
+    setPlayers(prev => prev.map(p => p.id === id ? updated : p))
   }
 
-  const deletePlayer = (id) => {
-    savePlayers(players.filter(p => p.id !== id))
-    // Also delete related results and punishments
-    saveResults(results.filter(r => r.playerId !== id))
-    savePunishments(punishments.filter(p => p.playerId !== id))
+  const deletePlayer = async (id) => {
+    await authFetch(`${API_URL}/players/${id}`, { method: 'DELETE' })
+    setPlayers(prev => prev.filter(p => p.id !== id))
+    setResults(prev => prev.filter(r => r.playerId !== id))
+    setPunishments(prev => prev.filter(p => p.playerId !== id))
   }
 
   // CRUD operations for Tournaments
-  const addTournament = (tournament) => {
-    const newTournament = { ...tournament, id: generateId('round') }
-    saveTournaments([...tournaments, newTournament])
+  const addTournament = async (tournament) => {
+    const newTournament = await authFetch(`${API_URL}/tournaments`, {
+      method: 'POST',
+      body: JSON.stringify(tournament),
+    })
+    setTournaments(prev => [...prev, newTournament])
     return newTournament
   }
 
-  const updateTournament = (id, updates) => {
-    saveTournaments(tournaments.map(t => t.id === id ? { ...t, ...updates } : t))
+  const updateTournament = async (id, updates) => {
+    const updated = await authFetch(`${API_URL}/tournaments/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(updates),
+    })
+    setTournaments(prev => prev.map(t => t.id === id ? updated : t))
   }
 
-  const deleteTournament = (id) => {
-    saveTournaments(tournaments.filter(t => t.id !== id))
-    // Also delete related results
-    saveResults(results.filter(r => r.tournamentId !== id))
+  const deleteTournament = async (id) => {
+    await authFetch(`${API_URL}/tournaments/${id}`, { method: 'DELETE' })
+    setTournaments(prev => prev.filter(t => t.id !== id))
+    setResults(prev => prev.filter(r => r.tournamentId !== id))
   }
 
-  // CRUD operations for Results
-  const addResult = (result) => {
-    const newResult = { ...result, id: generateId('result') }
-    saveResults([...results, newResult])
-    return newResult
-  }
-
-  const updateResult = (id, updates) => {
-    saveResults(results.map(r => r.id === id ? { ...r, ...updates } : r))
-  }
-
-  const deleteResult = (id) => {
-    saveResults(results.filter(r => r.id !== id))
-  }
-
-  // Bulk add/update results for a tournament
-  const setTournamentResults = (tournamentId, tournamentResults) => {
-    // Remove existing results for this tournament
-    const otherResults = results.filter(r => r.tournamentId !== tournamentId)
-    // Add new results with IDs
-    const newResults = tournamentResults.map(r => ({
-      ...r,
-      id: r.id || generateId('result'),
-      tournamentId,
-    }))
-    saveResults([...otherResults, ...newResults])
+  // Bulk update results for a tournament
+  const setTournamentResults = async (tournamentId, tournamentResults) => {
+    const newResults = await authFetch(`${API_URL}/results/tournament/${tournamentId}`, {
+      method: 'PUT',
+      body: JSON.stringify(tournamentResults),
+    })
+    setResults(prev => {
+      const otherResults = prev.filter(r => r.tournamentId !== tournamentId)
+      return [...otherResults, ...newResults]
+    })
   }
 
   // CRUD operations for Punishments
-  const addPunishment = (punishment) => {
-    const newPunishment = { ...punishment, id: generateId('pun') }
-    savePunishments([...punishments, newPunishment])
+  const addPunishment = async (punishment) => {
+    const newPunishment = await authFetch(`${API_URL}/punishments`, {
+      method: 'POST',
+      body: JSON.stringify(punishment),
+    })
+    setPunishments(prev => [...prev, newPunishment])
     return newPunishment
   }
 
-  const updatePunishment = (id, updates) => {
-    savePunishments(punishments.map(p => p.id === id ? { ...p, ...updates } : p))
+  const deletePunishment = async (id) => {
+    await authFetch(`${API_URL}/punishments/${id}`, { method: 'DELETE' })
+    setPunishments(prev => prev.filter(p => p.id !== id))
   }
 
-  const deletePunishment = (id) => {
-    savePunishments(punishments.filter(p => p.id !== id))
+  // Save rules
+  const saveRules = async (content) => {
+    await authFetch(`${API_URL}/rules`, {
+      method: 'PUT',
+      body: JSON.stringify({ content }),
+    })
+    setRules(content)
   }
 
-  // Reset all data to initial state
-  const resetData = () => {
-    savePlayers(initialPlayers)
-    saveTournaments(initialTournaments)
-    saveResults(initialResults)
-    savePunishments(initialPunishments)
-    saveRules(initialRules)
+  // Reset all data
+  const resetData = async () => {
+    await authFetch(`${API_URL}/reset`, { method: 'POST' })
+    await fetchData()
   }
 
   const value = {
@@ -177,6 +178,14 @@ export function DataProvider({ children }) {
     punishments,
     rules,
     isLoading,
+    error,
+
+    // Auth
+    verifyPassword,
+    getAdminPassword,
+
+    // Refresh data
+    refreshData: fetchData,
 
     // Player operations
     addPlayer,
@@ -189,14 +198,10 @@ export function DataProvider({ children }) {
     deleteTournament,
 
     // Result operations
-    addResult,
-    updateResult,
-    deleteResult,
     setTournamentResults,
 
     // Punishment operations
     addPunishment,
-    updatePunishment,
     deletePunishment,
 
     // Rules

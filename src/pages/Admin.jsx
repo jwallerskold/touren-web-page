@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react'
 import { useData } from '../context/DataContext'
 import { formatDate } from '../utils/calculations'
 
-const ADMIN_PASSWORD = 'golftour2025' // Change this to your preferred password
-
 export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [activeTab, setActiveTab] = useState('players')
 
   const {
@@ -16,30 +15,34 @@ export default function Admin() {
     addTournament, updateTournament, deleteTournament,
     setTournamentResults,
     addPunishment, deletePunishment,
-    saveRules, resetData, isLoading
+    saveRules, resetData, isLoading,
+    verifyPassword, getAdminPassword
   } = useData()
 
   useEffect(() => {
-    const auth = sessionStorage.getItem('adminAuth')
-    if (auth === 'true') {
+    // Check if already authenticated
+    if (getAdminPassword()) {
       setIsAuthenticated(true)
     }
-  }, [])
+  }, [getAdminPassword])
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    if (password === ADMIN_PASSWORD) {
+    setIsLoggingIn(true)
+    setError('')
+
+    const success = await verifyPassword(password)
+    if (success) {
       setIsAuthenticated(true)
-      sessionStorage.setItem('adminAuth', 'true')
-      setError('')
     } else {
       setError('Incorrect password')
     }
+    setIsLoggingIn(false)
   }
 
   const handleLogout = () => {
     setIsAuthenticated(false)
-    sessionStorage.removeItem('adminAuth')
+    sessionStorage.removeItem('adminPassword')
   }
 
   if (!isAuthenticated) {
@@ -65,9 +68,10 @@ export default function Admin() {
             )}
             <button
               type="submit"
-              className="w-full bg-green-700 text-white py-2 px-4 rounded-lg hover:bg-green-800 transition-colors"
+              disabled={isLoggingIn}
+              className="w-full bg-green-700 text-white py-2 px-4 rounded-lg hover:bg-green-800 transition-colors disabled:bg-green-400"
             >
-              Login
+              {isLoggingIn ? 'Logging in...' : 'Login'}
             </button>
           </form>
         </div>
@@ -780,8 +784,7 @@ function SettingsAdmin({ resetData }) {
       <div className="bg-white rounded-lg shadow-md p-6 mt-6">
         <h3 className="font-bold text-gray-800 mb-2">Admin Password</h3>
         <p className="text-gray-600">
-          To change the admin password, edit the <code className="bg-gray-100 px-1 rounded">ADMIN_PASSWORD</code> constant
-          in <code className="bg-gray-100 px-1 rounded">src/pages/Admin.jsx</code>
+          To change the admin password, edit <code className="bg-gray-100 px-1 rounded">server/data/config.json</code>
         </p>
       </div>
     </div>
