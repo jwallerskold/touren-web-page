@@ -139,3 +139,63 @@ export function formatDate(dateString) {
     day: 'numeric',
   })
 }
+
+// Calculate accumulated points per player over tournaments
+export function calculateAccumulatedPoints(players, results, tournaments) {
+  // Sort tournaments by order
+  const sortedTournaments = [...tournaments].sort((a, b) => a.order - b.order)
+
+  // Build data for each tournament
+  const chartData = sortedTournaments.map(tournament => {
+    const dataPoint = {
+      tournament: tournament.name,
+      tournamentId: tournament.id,
+      order: tournament.order,
+    }
+
+    // Calculate accumulated points for each player up to this tournament
+    players.forEach(player => {
+      const tournamentsUpToNow = sortedTournaments.filter(t => t.order <= tournament.order)
+      const tournamentIds = tournamentsUpToNow.map(t => t.id)
+      const playerResults = results.filter(
+        r => r.playerId === player.id && tournamentIds.includes(r.tournamentId)
+      )
+      const accumulatedPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
+      dataPoint[player.name] = accumulatedPoints
+    })
+
+    return dataPoint
+  })
+
+  return chartData
+}
+
+// Calculate accumulated punishment fees per player over tournaments
+export function calculateAccumulatedPunishments(players, punishments, tournaments) {
+  // Sort tournaments by order
+  const sortedTournaments = [...tournaments].sort((a, b) => a.order - b.order)
+
+  // Build data for each tournament
+  const chartData = sortedTournaments.map(tournament => {
+    const dataPoint = {
+      tournament: tournament.name,
+      tournamentId: tournament.id,
+      order: tournament.order,
+    }
+
+    // Calculate accumulated punishments for each player up to this tournament
+    players.forEach(player => {
+      const tournamentsUpToNow = sortedTournaments.filter(t => t.order <= tournament.order)
+      const tournamentIds = tournamentsUpToNow.map(t => t.id)
+      const playerPunishments = punishments.filter(
+        p => p.playerId === player.id && tournamentIds.includes(p.tournamentId)
+      )
+      const accumulatedFees = playerPunishments.reduce((sum, p) => sum + p.amount, 0)
+      dataPoint[player.name] = accumulatedFees
+    })
+
+    return dataPoint
+  })
+
+  return chartData
+}

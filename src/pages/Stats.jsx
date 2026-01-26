@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useData } from '../context/DataContext'
 import Leaderboard from '../components/Leaderboard'
 import PunishmentBoard from '../components/PunishmentBoard'
+import AccumulatedPointsChart from '../components/AccumulatedPointsChart'
+import AccumulatedPunishmentsChart from '../components/AccumulatedPunishmentsChart'
 
 export default function Stats() {
   const [activeTab, setActiveTab] = useState('leaderboard')
@@ -15,6 +17,8 @@ export default function Stats() {
   const tabs = [
     { id: 'leaderboard', label: 'Ställning' },
     { id: 'punishments', label: 'Straffavgifter' },
+    { id: 'points-chart', label: 'Poänggraf' },
+    { id: 'punishments-chart', label: 'Straffgraf' },
     { id: 'players', label: 'Alla spelare' },
   ]
 
@@ -55,6 +59,24 @@ export default function Stats() {
             Straffavgifter samlade under säsongen. Alla avgifter går till finalfesten!
           </p>
           <PunishmentBoard />
+        </div>
+      )}
+
+      {activeTab === 'points-chart' && (
+        <div>
+          <p className="text-gray-600 mb-4">
+            Ackumulerade poäng per spelare över säsongens tävlingar.
+          </p>
+          <AccumulatedPointsChart />
+        </div>
+      )}
+
+      {activeTab === 'punishments-chart' && (
+        <div>
+          <p className="text-gray-600 mb-4">
+            Ackumulerade straffavgifter per spelare över säsongens tävlingar.
+          </p>
+          <AccumulatedPunishmentsChart />
         </div>
       )}
 
