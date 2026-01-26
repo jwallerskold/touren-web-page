@@ -8,6 +8,7 @@ import Rules from './pages/Rules'
 import Stats from './pages/Stats'
 import PlayerStats from './pages/PlayerStats'
 import Admin from './pages/Admin'
+import History from './pages/History'
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
             <Route index element={<Home />} />
             <Route path="tournaments" element={<Tournaments />} />
             <Route path="tournaments/:id" element={<TournamentDetail />} />
-            <Route path="rules" element={<Rules />} />
+            <Route path="stadgar" element={<Rules />} />
             <Route path="stats" element={<Stats />} />
             <Route path="stats/:playerId" element={<PlayerStats />} />
+            <Route path="historia" element={<History />} />
             <Route path="admin" element={<Admin />} />
           </Route>
         </Routes>

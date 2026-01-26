@@ -25,7 +25,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Touren</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Touren 2026</h1>
           <div className="flex flex-wrap gap-4">
             <Link
               to="/tournaments"

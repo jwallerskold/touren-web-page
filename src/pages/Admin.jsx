@@ -10,12 +10,14 @@ export default function Admin() {
   const [activeTab, setActiveTab] = useState('players')
 
   const {
-    players, tournaments, results, punishments, rules,
+    players, tournaments, results, punishments, rules, history,
     addPlayer, updatePlayer, deletePlayer,
     addTournament, updateTournament, deleteTournament,
     setTournamentResults,
     addPunishment, deletePunishment,
-    saveRules, resetData, isLoading,
+    saveRules,
+    addHistoryYear, updateHistoryYear, deleteHistoryYear,
+    resetData, isLoading,
     verifyPassword, getAdminPassword
   } = useData()
 
@@ -88,7 +90,8 @@ export default function Admin() {
     { id: 'tournaments', label: 'Tävlingar' },
     { id: 'results', label: 'Resultat' },
     { id: 'punishments', label: 'Straff' },
-    { id: 'rules', label: 'Regler' },
+    { id: 'rules', label: 'Stadgar' },
+    { id: 'history', label: 'Historia' },
     { id: 'settings', label: 'Inställningar' },
   ]
 
@@ -157,6 +160,14 @@ export default function Admin() {
       )}
       {activeTab === 'rules' && (
         <RulesAdmin rules={rules} saveRules={saveRules} />
+      )}
+      {activeTab === 'history' && (
+        <HistoryAdmin
+          history={history}
+          addHistoryYear={addHistoryYear}
+          updateHistoryYear={updateHistoryYear}
+          deleteHistoryYear={deleteHistoryYear}
+        />
       )}
       {activeTab === 'settings' && (
         <SettingsAdmin resetData={resetData} />
@@ -745,7 +756,7 @@ function RulesAdmin({ rules, saveRules }) {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Redigera regler</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Redigera stadgar</h2>
       <p className="text-gray-600 mb-4">Använd Markdown-formatering (# för rubriker, - för listor, **fetstil**, etc.)</p>
 
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -759,7 +770,7 @@ function RulesAdmin({ rules, saveRules }) {
             onClick={handleSave}
             className="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800"
           >
-            Spara regler
+            Spara stadgar
           </button>
           {saved && <span className="text-green-600">Sparat!</span>}
         </div>
@@ -798,6 +809,312 @@ function SettingsAdmin({ resetData }) {
         <p className="text-gray-600">
           För att ändra admin-lösenordet, redigera <code className="bg-gray-100 px-1 rounded">server/data/config.json</code>
         </p>
+      </div>
+    </div>
+  )
+}
+
+// History Management
+function HistoryAdmin({ history, addHistoryYear, updateHistoryYear, deleteHistoryYear }) {
+  const [editingYear, setEditingYear] = useState(null)
+  const [formData, setFormData] = useState({
+    year: new Date().getFullYear(),
+    teamPhotoUrl: '',
+    tourWinner: { name: '', photoUrl: '', points: '', description: '' },
+    finalWinner: { name: '', photoUrl: '', course: '', description: '' },
+    notes: ''
+  })
+  const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
+
+  const resetForm = () => {
+    setFormData({
+      year: new Date().getFullYear(),
+      teamPhotoUrl: '',
+      tourWinner: { name: '', photoUrl: '', points: '', description: '' },
+      finalWinner: { name: '', photoUrl: '', course: '', description: '' },
+      notes: ''
+    })
+    setEditingYear(null)
+    setError('')
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    setSaving(true)
+
+    const data = {
+      ...formData,
+      year: parseInt(formData.year),
+      tourWinner: {
+        ...formData.tourWinner,
+        points: formData.tourWinner.points ? parseInt(formData.tourWinner.points) : null
+      }
+    }
+
+    // Check for duplicate year when adding new
+    if (!editingYear) {
+      const existingYear = history?.find(h => h.year === data.year)
+      if (existingYear) {
+        setError(`År ${data.year} finns redan. Redigera befintligt år istället.`)
+        setSaving(false)
+        return
+      }
+    }
+
+    try {
+      if (editingYear) {
+        await updateHistoryYear(editingYear, data)
+      } else {
+        await addHistoryYear(data)
+      }
+      resetForm()
+    } catch (err) {
+      setError(err.message || 'Något gick fel vid sparandet')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const startEdit = (yearData) => {
+    setEditingYear(yearData.year)
+    setError('')
+    setFormData({
+      year: yearData.year,
+      teamPhotoUrl: yearData.teamPhotoUrl || '',
+      tourWinner: {
+        name: yearData.tourWinner?.name || '',
+        photoUrl: yearData.tourWinner?.photoUrl || '',
+        points: yearData.tourWinner?.points || '',
+        description: yearData.tourWinner?.description || ''
+      },
+      finalWinner: {
+        name: yearData.finalWinner?.name || '',
+        photoUrl: yearData.finalWinner?.photoUrl || '',
+        course: yearData.finalWinner?.course || '',
+        description: yearData.finalWinner?.description || ''
+      },
+      notes: yearData.notes || ''
+    })
+  }
+
+  const sortedHistory = [...(history || [])].sort((a, b) => b.year - a.year)
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">
+        {editingYear ? `Redigera ${editingYear}` : 'Lägg till år'}
+      </h2>
+
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="grid md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">År</label>
+            <input
+              type="number"
+              value={formData.year}
+              onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              required
+              disabled={editingYear !== null}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Lagbild URL</label>
+            <input
+              type="text"
+              value={formData.teamPhotoUrl}
+              onChange={(e) => setFormData({ ...formData, teamPhotoUrl: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              placeholder="/images/history/2025-team.jpg"
+            />
+          </div>
+        </div>
+
+        {/* Tour Winner */}
+        <div className="border-t pt-4 mt-4">
+          <h3 className="font-bold text-gray-800 mb-3">Tourvinnare</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Namn</label>
+              <input
+                type="text"
+                value={formData.tourWinner.name}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  tourWinner: { ...formData.tourWinner, name: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Poäng</label>
+              <input
+                type="number"
+                value={formData.tourWinner.points}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  tourWinner: { ...formData.tourWinner, points: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Foto URL</label>
+              <input
+                type="text"
+                value={formData.tourWinner.photoUrl}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  tourWinner: { ...formData.tourWinner, photoUrl: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="/images/history/2025-tour-winner.jpg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Beskrivning</label>
+              <input
+                type="text"
+                value={formData.tourWinner.description}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  tourWinner: { ...formData.tourWinner, description: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Final Winner */}
+        <div className="border-t pt-4 mt-4">
+          <h3 className="font-bold text-gray-800 mb-3">Finalvinnare</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Namn</label>
+              <input
+                type="text"
+                value={formData.finalWinner.name}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  finalWinner: { ...formData.finalWinner, name: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Bana</label>
+              <input
+                type="text"
+                value={formData.finalWinner.course}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  finalWinner: { ...formData.finalWinner, course: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Foto URL</label>
+              <input
+                type="text"
+                value={formData.finalWinner.photoUrl}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  finalWinner: { ...formData.finalWinner, photoUrl: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="/images/history/2025-final-winner.jpg"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Beskrivning</label>
+              <input
+                type="text"
+                value={formData.finalWinner.description}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  finalWinner: { ...formData.finalWinner, description: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Notes */}
+        <div className="border-t pt-4 mt-4">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Anteckningar</label>
+          <textarea
+            value={formData.notes}
+            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+            rows="2"
+            placeholder="Övriga minnesanteckningar från säsongen..."
+          />
+        </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+            {error}
+          </div>
+        )}
+
+        <div className="flex gap-2 mt-4">
+          <button
+            type="submit"
+            disabled={saving}
+            className="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 disabled:bg-green-400"
+          >
+            {saving ? 'Sparar...' : (editingYear ? 'Uppdatera' : 'Lägg till')} {!saving && 'år'}
+          </button>
+          {editingYear && (
+            <button type="button" onClick={resetForm} className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg">
+              Avbryt
+            </button>
+          )}
+        </div>
+      </form>
+
+      <h2 className="text-xl font-bold text-gray-800 mb-4">Sparad historik ({sortedHistory.length})</h2>
+      <div className="space-y-4">
+        {sortedHistory.map(yearData => (
+          <div key={yearData.year} className="bg-white rounded-lg shadow-md p-4">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">{yearData.year}</h3>
+                <div className="text-sm text-gray-600 mt-1">
+                  {yearData.tourWinner?.name && (
+                    <p>Tourvinnare: <span className="font-medium">{yearData.tourWinner.name}</span></p>
+                  )}
+                  {yearData.finalWinner?.name && (
+                    <p>Finalvinnare: <span className="font-medium">{yearData.finalWinner.name}</span></p>
+                  )}
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => startEdit(yearData)}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  Redigera
+                </button>
+                <button
+                  onClick={() => {
+                    if (confirm(`Ta bort historik för ${yearData.year}?`)) {
+                      deleteHistoryYear(yearData.year)
+                    }
+                  }}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  Ta bort
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

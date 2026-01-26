@@ -8,8 +8,9 @@ export default function Navbar() {
   const navLinks = [
     { to: '/', label: 'Hem' },
     { to: '/tournaments', label: 'Tävlingar' },
-    { to: '/rules', label: 'Regler' },
     { to: '/stats', label: 'Statistik' },
+    { to: '/historia', label: 'Historia' },
+    { to: '/stadgar', label: 'Stadgar' },
   ]
 
   const isActive = (path) => location.pathname === path

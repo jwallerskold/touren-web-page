@@ -10,6 +10,7 @@ export function DataProvider({ children }) {
   const [results, setResults] = useState([])
   const [punishments, setPunishments] = useState([])
   const [rules, setRules] = useState('')
+  const [history, setHistory] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -29,6 +30,7 @@ export function DataProvider({ children }) {
       setResults(data.results)
       setPunishments(data.punishments)
       setRules(data.rules)
+      setHistory(data.history || [])
     } catch (err) {
       setError(err.message)
       console.error('Error fetching data:', err)
@@ -164,6 +166,29 @@ export function DataProvider({ children }) {
     setRules(content)
   }
 
+  // CRUD operations for History
+  const addHistoryYear = async (yearData) => {
+    const newYear = await authFetch(`${API_URL}/history`, {
+      method: 'POST',
+      body: JSON.stringify(yearData),
+    })
+    setHistory(prev => [...prev, newYear])
+    return newYear
+  }
+
+  const updateHistoryYear = async (year, updates) => {
+    const updated = await authFetch(`${API_URL}/history/${year}`, {
+      method: 'PUT',
+      body: JSON.stringify(updates),
+    })
+    setHistory(prev => prev.map(h => h.year === year ? updated : h))
+  }
+
+  const deleteHistoryYear = async (year) => {
+    await authFetch(`${API_URL}/history/${year}`, { method: 'DELETE' })
+    setHistory(prev => prev.filter(h => h.year !== year))
+  }
+
   // Reset all data
   const resetData = async () => {
     await authFetch(`${API_URL}/reset`, { method: 'POST' })
@@ -177,6 +202,7 @@ export function DataProvider({ children }) {
     results,
     punishments,
     rules,
+    history,
     isLoading,
     error,
 
@@ -206,6 +232,11 @@ export function DataProvider({ children }) {
 
     // Rules
     saveRules,
+
+    // History operations
+    addHistoryYear,
+    updateHistoryYear,
+    deleteHistoryYear,
 
     // Reset
     resetData,
