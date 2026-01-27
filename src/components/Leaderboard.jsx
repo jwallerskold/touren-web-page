@@ -25,7 +25,8 @@ export default function Leaderboard({ limit = null }) {
           <tr>
             <th className="px-4 py-3 text-left">#</th>
             <th className="px-4 py-3 text-left">Spelare</th>
-            <th className="px-4 py-3 text-center">Poäng</th>
+            <th className="px-4 py-3 text-center">Bästa 4</th>
+            <th className="px-4 py-3 text-center">Total poäng</th>
             <th className="px-4 py-3 text-center hidden sm:table-cell">Rundor</th>
             <th className="px-4 py-3 text-center hidden md:table-cell">Snittslag</th>
             <th className="px-4 py-3 text-center hidden md:table-cell">Bästa netto</th>
@@ -55,6 +56,9 @@ export default function Leaderboard({ limit = null }) {
                 </Link>
               </td>
               <td className="px-4 py-3 text-center font-bold text-green-700">
+                {player.bestFourPoints}
+              </td>
+              <td className="px-4 py-3 text-center text-gray-600">
                 {player.totalPoints}
               </td>
               <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">

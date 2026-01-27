@@ -10,17 +10,27 @@ export function calculateLeaderboard(players, results) {
       : '-'
     const bestNetScore = roundsPlayed > 0 ? Math.min(...netScores) : '-'
 
+    // Calculate best 4 tournaments points
+    const sortedPoints = playerResults.map(r => r.points).sort((a, b) => b - a)
+    const bestFourPoints = sortedPoints.slice(0, 4).reduce((sum, p) => sum + p, 0)
+
     return {
       ...player,
       totalPoints,
+      bestFourPoints,
       roundsPlayed,
       avgScore,
       bestNetScore,
     }
   })
 
-  // Sort by total points descending
-  return playerStats.sort((a, b) => b.totalPoints - a.totalPoints)
+  // Sort by best four points descending (then by total points as tiebreaker)
+  return playerStats.sort((a, b) => {
+    if (b.bestFourPoints !== a.bestFourPoints) {
+      return b.bestFourPoints - a.bestFourPoints
+    }
+    return b.totalPoints - a.totalPoints
+  })
 }
 
 // Calculate punishment totals per player
