@@ -2,34 +2,38 @@
 export function calculateLeaderboard(players, results) {
   const playerStats = players.map(player => {
     const playerResults = results.filter(r => r.playerId === player.id)
-    const totalPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
-    const roundsPlayed = playerResults.length
-    const netScores = playerResults.map(r => r.netScore)
-    const avgScore = roundsPlayed > 0
-      ? (netScores.reduce((sum, s) => sum + s, 0) / roundsPlayed).toFixed(1)
-      : '-'
-    const bestNetScore = roundsPlayed > 0 ? Math.min(...netScores) : '-'
 
-    // Calculate best 4 tournaments points
-    const sortedPoints = playerResults.map(r => r.points).sort((a, b) => b - a)
-    const bestFourPoints = sortedPoints.slice(0, 4).reduce((sum, p) => sum + p, 0)
+    // Tour points (for standings)
+    const totalTourPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
+    const sortedTourPoints = playerResults.map(r => r.points).sort((a, b) => b - a)
+    const bestFourTourPoints = sortedTourPoints.slice(0, 4).reduce((sum, p) => sum + p, 0)
+
+    // Round points (golf points per round)
+    const roundsPlayed = playerResults.length
+    const roundPointsArray = playerResults.map(r => r.roundPoints || 0)
+    const avgRoundPoints = roundsPlayed > 0
+      ? (roundPointsArray.reduce((sum, p) => sum + p, 0) / roundsPlayed).toFixed(1)
+      : '-'
+    const bestRoundPoints = roundsPlayed > 0 && roundPointsArray.some(p => p > 0)
+      ? Math.max(...roundPointsArray)
+      : '-'
 
     return {
       ...player,
-      totalPoints,
-      bestFourPoints,
+      totalTourPoints,
+      bestFourTourPoints,
       roundsPlayed,
-      avgScore,
-      bestNetScore,
+      avgRoundPoints,
+      bestRoundPoints,
     }
   })
 
-  // Sort by best four points descending (then by total points as tiebreaker)
+  // Sort by best four tour points descending (then by total tour points as tiebreaker)
   return playerStats.sort((a, b) => {
-    if (b.bestFourPoints !== a.bestFourPoints) {
-      return b.bestFourPoints - a.bestFourPoints
+    if (b.bestFourTourPoints !== a.bestFourTourPoints) {
+      return b.bestFourTourPoints - a.bestFourTourPoints
     }
-    return b.totalPoints - a.totalPoints
+    return b.totalTourPoints - a.totalTourPoints
   })
 }
 
@@ -94,23 +98,27 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
     })
     .sort((a, b) => b.tournamentOrder - a.tournamentOrder)
 
-  const totalPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
+  // Tour points
+  const totalTourPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
+
+  // Round points (golf points)
   const roundsPlayed = playerResults.length
-  const netScores = playerResults.map(r => r.netScore)
-  const avgScore = roundsPlayed > 0
-    ? (netScores.reduce((sum, s) => sum + s, 0) / roundsPlayed).toFixed(1)
+  const roundPointsArray = playerResults.map(r => r.roundPoints || 0)
+  const avgRoundPoints = roundsPlayed > 0
+    ? (roundPointsArray.reduce((sum, p) => sum + p, 0) / roundsPlayed).toFixed(1)
     : '-'
-  const bestNetScore = roundsPlayed > 0 ? Math.min(...netScores) : '-'
-  const bestPoints = roundsPlayed > 0 ? Math.max(...playerResults.map(r => r.points)) : '-'
+  const bestRoundPoints = roundsPlayed > 0 && roundPointsArray.some(p => p > 0)
+    ? Math.max(...roundPointsArray)
+    : '-'
+
   const totalPunishmentFees = playerPunishments.reduce((sum, p) => sum + p.amount, 0)
 
   return {
     ...player,
-    totalPoints,
+    totalTourPoints,
     roundsPlayed,
-    avgScore,
-    bestNetScore,
-    bestPoints,
+    avgRoundPoints,
+    bestRoundPoints,
     totalPunishmentFees,
     results: playerResults,
     punishments: playerPunishments,

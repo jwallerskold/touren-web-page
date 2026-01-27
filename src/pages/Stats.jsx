@@ -65,7 +65,7 @@ export default function Stats() {
       {activeTab === 'points-chart' && (
         <div>
           <p className="text-gray-600 mb-4">
-            Ackumulerade poäng per spelare över säsongens tävlingar.
+            Ackumulerade Tour-poäng per spelare över säsongens tävlingar.
           </p>
           <AccumulatedPointsChart />
         </div>

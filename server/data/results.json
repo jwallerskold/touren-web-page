@@ -3,72 +3,90 @@
     "playerId": "player-1769336500096-jret80dh0",
     "grossScore": 80,
     "netScore": 73,
+    "roundPoints": 39,
     "points": 10,
     "position": 1,
-    "id": "result-1769337378398-nkwscnv0q",
+    "id": "result-1769541376482-ts5pid735",
     "tournamentId": "round-1769337317529-q2i7lq7zy"
   },
   {
     "playerId": "player-1769336508189-5pjdbq1xq",
     "grossScore": 90,
     "netScore": 75,
+    "roundPoints": 33,
     "points": 8,
     "position": 2,
-    "id": "result-1769337378398-dnz08a03n",
+    "id": "result-1769541376482-db8dgr9rd",
     "tournamentId": "round-1769337317529-q2i7lq7zy"
   },
   {
     "playerId": "player-1769336500096-jret80dh0",
     "grossScore": 71,
     "netScore": 65,
+    "roundPoints": 35,
     "points": 8,
     "position": 2,
-    "id": "result-1769460935024-flqcrjl77",
+    "id": "result-1769541393403-3xgswj1wm",
     "tournamentId": "round-1"
   },
   {
     "playerId": "player-1769336508189-5pjdbq1xq",
     "grossScore": 80,
     "netScore": 64,
+    "roundPoints": 40,
     "points": 10,
     "position": 1,
-    "id": "result-1769460935024-eq9vdz9qt",
+    "id": "result-1769541393403-07dtg2k5w",
     "tournamentId": "round-1"
   },
   {
     "playerId": "player-1769338219562-ny6ls2tdz",
     "grossScore": 90,
     "netScore": 71,
+    "roundPoints": 34,
     "points": 6,
     "position": 3,
-    "id": "result-1769460935024-mvfqdbnw2",
+    "id": "result-1769541393403-f9gz2j5a3",
     "tournamentId": "round-1"
   },
   {
     "playerId": "player-1769336500096-jret80dh0",
     "grossScore": 90,
     "netScore": 81,
+    "roundPoints": 28,
     "points": 6,
     "position": 3,
-    "id": "result-1769538940086-4ungmh0vd",
+    "id": "result-1769541614014-dhcx95wru",
     "tournamentId": "round-2"
   },
   {
     "playerId": "player-1769336508189-5pjdbq1xq",
     "grossScore": 75,
     "netScore": 69,
+    "roundPoints": 30,
     "points": 8,
     "position": 2,
-    "id": "result-1769538940086-9dhwrwzz2",
+    "id": "result-1769541614015-hxoaj1d53",
     "tournamentId": "round-2"
   },
   {
     "playerId": "player-1769338219562-ny6ls2tdz",
     "grossScore": 80,
     "netScore": 68,
+    "roundPoints": 31,
     "points": 10,
     "position": 1,
-    "id": "result-1769538940086-291qrbl4u",
+    "id": "result-1769541614015-tkyn2oqtq",
+    "tournamentId": "round-2"
+  },
+  {
+    "playerId": "player-1769541341218-9odxnxnkq",
+    "grossScore": 101,
+    "netScore": null,
+    "roundPoints": 25,
+    "points": 5,
+    "position": 4,
+    "id": "result-1769541614015-yusi8gufk",
     "tournamentId": "round-2"
   }
 ]

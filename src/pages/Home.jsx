@@ -73,13 +73,13 @@ export default function Home() {
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
             Nuvarande ledare
           </h2>
-          {currentLeader && currentLeader.totalPoints > 0 ? (
+          {currentLeader && currentLeader.bestFourTourPoints > 0 ? (
             <Link to={`/stats/${currentLeader.id}`} className="block group">
               <p className="text-2xl font-bold text-gray-800 group-hover:text-green-700">
                 {currentLeader.name}
               </p>
-              <p className="text-4xl font-bold text-green-700">{currentLeader.totalPoints}</p>
-              <p className="text-gray-500">poäng</p>
+              <p className="text-4xl font-bold text-green-700">{currentLeader.bestFourTourPoints}</p>
+              <p className="text-gray-500">Tour-poäng (bästa 4)</p>
             </Link>
           ) : (
             <p className="text-gray-500">Inga resultat ännu</p>

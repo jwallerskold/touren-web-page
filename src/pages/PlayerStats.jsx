@@ -55,20 +55,20 @@ export default function PlayerStats() {
       {/* Stats Grid */}
       <div className="grid md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Totala poäng</p>
-          <p className="text-3xl font-bold text-green-700">{playerStats.totalPoints}</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Total Tour-poäng</p>
+          <p className="text-3xl font-bold text-green-700">{playerStats.totalTourPoints}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide">Spelade rundor</p>
           <p className="text-3xl font-bold text-gray-800">{playerStats.roundsPlayed}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Snitt nettoscore</p>
-          <p className="text-3xl font-bold text-gray-800">{playerStats.avgScore}</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Snitt Poäng runda</p>
+          <p className="text-3xl font-bold text-gray-800">{playerStats.avgRoundPoints}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Bästa nettoscore</p>
-          <p className="text-3xl font-bold text-gray-800">{playerStats.bestNetScore}</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Bästa Poäng runda</p>
+          <p className="text-3xl font-bold text-gray-800">{playerStats.bestRoundPoints}</p>
         </div>
       </div>
 
@@ -83,8 +83,9 @@ export default function PlayerStats() {
                   <tr>
                     <th className="px-4 py-3 text-left">Tävling</th>
                     <th className="px-4 py-3 text-center">Pos</th>
-                    <th className="px-4 py-3 text-center">Netto</th>
-                    <th className="px-4 py-3 text-center">Poäng</th>
+                    <th className="px-4 py-3 text-center">Brutto</th>
+                    <th className="px-4 py-3 text-center">Poäng runda</th>
+                    <th className="px-4 py-3 text-center">Tour-poäng</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -110,7 +111,10 @@ export default function PlayerStats() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-center text-gray-600">
-                        {result.netScore}
+                        {result.grossScore}
+                      </td>
+                      <td className="px-4 py-3 text-center text-gray-600">
+                        {result.roundPoints || '-'}
                       </td>
                       <td className="px-4 py-3 text-center font-bold text-green-700">
                         {result.points}

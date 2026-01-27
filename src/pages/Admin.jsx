@@ -485,6 +485,7 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
           playerName: player.name,
           grossScore: existing?.grossScore || '',
           netScore: existing?.netScore || '',
+          roundPoints: existing?.roundPoints || '',
           points: existing?.points || '',
           position: existing?.position || '',
           participated: !!existing,
@@ -504,11 +505,12 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
 
   const handleSave = () => {
     const validResults = resultsForm
-      .filter(r => r.participated && r.grossScore && r.netScore && r.points && r.position)
+      .filter(r => r.participated && r.grossScore && r.roundPoints && r.points && r.position)
       .map(r => ({
         playerId: r.playerId,
         grossScore: parseInt(r.grossScore),
-        netScore: parseInt(r.netScore),
+        netScore: r.netScore ? parseInt(r.netScore) : null,
+        roundPoints: parseInt(r.roundPoints),
         points: parseInt(r.points),
         position: parseInt(r.position),
       }))
@@ -546,8 +548,8 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
                 <th className="px-3 py-2 text-left">Spelare</th>
                 <th className="px-3 py-2 text-center">Pos</th>
                 <th className="px-3 py-2 text-center">Brutto</th>
-                <th className="px-3 py-2 text-center">Netto</th>
-                <th className="px-3 py-2 text-center">Poäng</th>
+                <th className="px-3 py-2 text-center">Poäng runda</th>
+                <th className="px-3 py-2 text-center">Tour-poäng</th>
               </tr>
             </thead>
             <tbody>
@@ -582,8 +584,8 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
                   <td className="px-3 py-2">
                     <input
                       type="number"
-                      value={row.netScore}
-                      onChange={(e) => updateFormRow(index, 'netScore', e.target.value)}
+                      value={row.roundPoints}
+                      onChange={(e) => updateFormRow(index, 'roundPoints', e.target.value)}
                       className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
                       disabled={!row.participated}
                     />

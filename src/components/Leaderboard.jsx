@@ -25,11 +25,11 @@ export default function Leaderboard({ limit = null }) {
           <tr>
             <th className="px-4 py-3 text-left">#</th>
             <th className="px-4 py-3 text-left">Spelare</th>
-            <th className="px-4 py-3 text-center">Bästa 4</th>
-            <th className="px-4 py-3 text-center">Total poäng</th>
+            <th className="px-4 py-3 text-center">Bästa 4 Tour-poäng</th>
+            <th className="px-4 py-3 text-center">Total Tour-poäng</th>
             <th className="px-4 py-3 text-center hidden sm:table-cell">Rundor</th>
-            <th className="px-4 py-3 text-center hidden md:table-cell">Snittslag</th>
-            <th className="px-4 py-3 text-center hidden md:table-cell">Bästa netto</th>
+            <th className="px-4 py-3 text-center hidden md:table-cell">Snitt Poäng runda</th>
+            <th className="px-4 py-3 text-center hidden md:table-cell">Bästa Poäng runda</th>
           </tr>
         </thead>
         <tbody>
@@ -56,19 +56,19 @@ export default function Leaderboard({ limit = null }) {
                 </Link>
               </td>
               <td className="px-4 py-3 text-center font-bold text-green-700">
-                {player.bestFourPoints}
+                {player.bestFourTourPoints}
               </td>
               <td className="px-4 py-3 text-center text-gray-600">
-                {player.totalPoints}
+                {player.totalTourPoints}
               </td>
               <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
                 {player.roundsPlayed}
               </td>
               <td className="px-4 py-3 text-center hidden md:table-cell text-gray-600">
-                {player.avgScore}
+                {player.avgRoundPoints}
               </td>
               <td className="px-4 py-3 text-center hidden md:table-cell text-gray-600">
-                {player.bestNetScore}
+                {player.bestRoundPoints}
               </td>
             </tr>
           ))}

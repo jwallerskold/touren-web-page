@@ -45,7 +45,7 @@ export default function AccumulatedPointsChart() {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h3 className="text-lg font-bold text-gray-800 mb-4">Ackumulerade poäng per spelare</h3>
+      <h3 className="text-lg font-bold text-gray-800 mb-4">Ackumulerade Tour-poäng per spelare</h3>
       <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -61,7 +61,7 @@ export default function AccumulatedPointsChart() {
               height={80}
             />
             <YAxis
-              label={{ value: 'Poäng', angle: -90, position: 'insideLeft' }}
+              label={{ value: 'Tour-poäng', angle: -90, position: 'insideLeft' }}
             />
             <Tooltip />
             <Legend />

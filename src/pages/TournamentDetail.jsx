@@ -97,8 +97,8 @@ export default function TournamentDetail() {
                   <th className="px-4 py-3 text-left">Pos</th>
                   <th className="px-4 py-3 text-left">Spelare</th>
                   <th className="px-4 py-3 text-center">Brutto</th>
-                  <th className="px-4 py-3 text-center">Netto</th>
-                  <th className="px-4 py-3 text-center">Poäng</th>
+                  <th className="px-4 py-3 text-center">Poäng runda</th>
+                  <th className="px-4 py-3 text-center">Tour-poäng</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,7 +131,7 @@ export default function TournamentDetail() {
                       {result.grossScore}
                     </td>
                     <td className="px-4 py-3 text-center text-gray-600">
-                      {result.netScore}
+                      {result.roundPoints || '-'}
                     </td>
                     <td className="px-4 py-3 text-center font-bold text-green-700">
                       {result.points}
