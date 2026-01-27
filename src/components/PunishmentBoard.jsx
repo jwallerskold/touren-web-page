@@ -21,6 +21,10 @@ export default function PunishmentBoard({ limit = null }) {
     )
   }
 
+  // Calculate totals
+  const totalFees = board.reduce((sum, p) => sum + p.totalFees, 0)
+  const totalCount = board.reduce((sum, p) => sum + p.count, 0)
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <table className="w-full">
@@ -61,6 +65,19 @@ export default function PunishmentBoard({ limit = null }) {
             </tr>
           ))}
         </tbody>
+        <tfoot className="bg-red-50 border-t-2 border-red-200">
+          <tr>
+            <td className="px-4 py-3"></td>
+            <td className="px-4 py-3 font-bold text-gray-800">Summa</td>
+            <td className="px-4 py-3 text-center font-bold text-red-800 text-lg">
+              {totalFees} kr
+            </td>
+            <td className="px-4 py-3 text-center hidden sm:table-cell font-medium text-gray-700">
+              {totalCount}
+            </td>
+            <td className="px-4 py-3 hidden md:table-cell"></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   )

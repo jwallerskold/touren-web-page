@@ -1,0 +1,74 @@
+[
+  {
+    "playerId": "player-1769336500096-jret80dh0",
+    "grossScore": 80,
+    "netScore": 73,
+    "points": 10,
+    "position": 1,
+    "id": "result-1769337378398-nkwscnv0q",
+    "tournamentId": "round-1769337317529-q2i7lq7zy"
+  },
+  {
+    "playerId": "player-1769336508189-5pjdbq1xq",
+    "grossScore": 90,
+    "netScore": 75,
+    "points": 8,
+    "position": 2,
+    "id": "result-1769337378398-dnz08a03n",
+    "tournamentId": "round-1769337317529-q2i7lq7zy"
+  },
+  {
+    "playerId": "player-1769336500096-jret80dh0",
+    "grossScore": 71,
+    "netScore": 65,
+    "points": 8,
+    "position": 2,
+    "id": "result-1769460935024-flqcrjl77",
+    "tournamentId": "round-1"
+  },
+  {
+    "playerId": "player-1769336508189-5pjdbq1xq",
+    "grossScore": 80,
+    "netScore": 64,
+    "points": 10,
+    "position": 1,
+    "id": "result-1769460935024-eq9vdz9qt",
+    "tournamentId": "round-1"
+  },
+  {
+    "playerId": "player-1769338219562-ny6ls2tdz",
+    "grossScore": 90,
+    "netScore": 71,
+    "points": 6,
+    "position": 3,
+    "id": "result-1769460935024-mvfqdbnw2",
+    "tournamentId": "round-1"
+  },
+  {
+    "playerId": "player-1769336500096-jret80dh0",
+    "grossScore": 90,
+    "netScore": 81,
+    "points": 6,
+    "position": 3,
+    "id": "result-1769538940086-4ungmh0vd",
+    "tournamentId": "round-2"
+  },
+  {
+    "playerId": "player-1769336508189-5pjdbq1xq",
+    "grossScore": 75,
+    "netScore": 69,
+    "points": 8,
+    "position": 2,
+    "id": "result-1769538940086-9dhwrwzz2",
+    "tournamentId": "round-2"
+  },
+  {
+    "playerId": "player-1769338219562-ny6ls2tdz",
+    "grossScore": 80,
+    "netScore": 68,
+    "points": 10,
+    "position": 1,
+    "id": "result-1769538940086-291qrbl4u",
+    "tournamentId": "round-2"
+  }
+]

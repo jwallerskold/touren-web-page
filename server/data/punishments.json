@@ -1,0 +1,23 @@
+[
+  {
+    "playerId": "player-1769336508189-5pjdbq1xq",
+    "amount": 100,
+    "reason": "Screamed \"HORA\"",
+    "tournamentId": "round-1769337317529-q2i7lq7zy",
+    "id": "pun-1769337396540-a9rk0bdx3"
+  },
+  {
+    "playerId": "player-1769336508189-5pjdbq1xq",
+    "tournamentId": "round-1",
+    "amount": 250,
+    "reason": "3 putt",
+    "id": "pun-1769460965826-as089jpem"
+  },
+  {
+    "playerId": "player-1769336500096-jret80dh0",
+    "tournamentId": "round-1",
+    "amount": 50,
+    "reason": "Kastade klubba",
+    "id": "pun-1769460982591-wctugx61b"
+  }
+]

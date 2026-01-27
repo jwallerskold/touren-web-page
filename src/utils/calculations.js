@@ -142,11 +142,14 @@ export function formatDate(dateString) {
 
 // Calculate accumulated points per player over tournaments
 export function calculateAccumulatedPoints(players, results, tournaments) {
-  // Sort tournaments by order
-  const sortedTournaments = [...tournaments].sort((a, b) => a.order - b.order)
+  // Filter to only completed tournaments (those with results) and sort by order
+  const completedTournamentIds = [...new Set(results.map(r => r.tournamentId))]
+  const completedTournaments = tournaments
+    .filter(t => completedTournamentIds.includes(t.id))
+    .sort((a, b) => a.order - b.order)
 
-  // Build data for each tournament
-  const chartData = sortedTournaments.map(tournament => {
+  // Build data for each completed tournament
+  const chartData = completedTournaments.map(tournament => {
     const dataPoint = {
       tournament: tournament.name,
       tournamentId: tournament.id,
@@ -155,7 +158,7 @@ export function calculateAccumulatedPoints(players, results, tournaments) {
 
     // Calculate accumulated points for each player up to this tournament
     players.forEach(player => {
-      const tournamentsUpToNow = sortedTournaments.filter(t => t.order <= tournament.order)
+      const tournamentsUpToNow = completedTournaments.filter(t => t.order <= tournament.order)
       const tournamentIds = tournamentsUpToNow.map(t => t.id)
       const playerResults = results.filter(
         r => r.playerId === player.id && tournamentIds.includes(r.tournamentId)
@@ -171,12 +174,15 @@ export function calculateAccumulatedPoints(players, results, tournaments) {
 }
 
 // Calculate accumulated punishment fees per player over tournaments
-export function calculateAccumulatedPunishments(players, punishments, tournaments) {
-  // Sort tournaments by order
-  const sortedTournaments = [...tournaments].sort((a, b) => a.order - b.order)
+export function calculateAccumulatedPunishments(players, punishments, tournaments, results) {
+  // Filter to only completed tournaments (those with results) and sort by order
+  const completedTournamentIds = [...new Set(results.map(r => r.tournamentId))]
+  const completedTournaments = tournaments
+    .filter(t => completedTournamentIds.includes(t.id))
+    .sort((a, b) => a.order - b.order)
 
-  // Build data for each tournament
-  const chartData = sortedTournaments.map(tournament => {
+  // Build data for each completed tournament
+  const chartData = completedTournaments.map(tournament => {
     const dataPoint = {
       tournament: tournament.name,
       tournamentId: tournament.id,
@@ -185,7 +191,7 @@ export function calculateAccumulatedPunishments(players, punishments, tournament
 
     // Calculate accumulated punishments for each player up to this tournament
     players.forEach(player => {
-      const tournamentsUpToNow = sortedTournaments.filter(t => t.order <= tournament.order)
+      const tournamentsUpToNow = completedTournaments.filter(t => t.order <= tournament.order)
       const tournamentIds = tournamentsUpToNow.map(t => t.id)
       const playerPunishments = punishments.filter(
         p => p.playerId === player.id && tournamentIds.includes(p.tournamentId)

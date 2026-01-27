@@ -1,0 +1,19 @@
+[
+  {
+    "year": 2025,
+    "teamPhotoUrl": "\\images\\home-page\\team-photo-2025.jpg",
+    "tourWinner": {
+      "name": "Erik Svensson",
+      "photoUrl": "",
+      "points": 42,
+      "description": "Dominant throughout the season"
+    },
+    "finalWinner": {
+      "name": "Johan Andersson",
+      "photoUrl": "",
+      "course": "Bro Hof Slott",
+      "description": "Amazing final round"
+    },
+    "notes": "A memorable season with great weather and close competition."
+  }
+]
