@@ -1,22 +1,62 @@
 [
   {
-    "name": "Kalle Karlsson",
-    "handicap": 7.1,
-    "id": "player-1769336500096-jret80dh0"
+    "name": "Pontus Govenius",
+    "handicap": 16,
+    "id": "player-1770056918210-5skpispvi"
   },
   {
-    "name": "Johan Johansson",
-    "handicap": 13.9,
-    "id": "player-1769336508189-5pjdbq1xq"
+    "name": "Anton Järnå",
+    "handicap": 7,
+    "id": "player-1770056928981-x92dul661"
   },
   {
-    "name": "Jacob Jacobsson",
-    "handicap": 36,
-    "id": "player-1769338219562-ny6ls2tdz"
+    "name": "Filip Wallersköld",
+    "handicap": 15,
+    "id": "player-1770056941011-zji1q8fo1"
   },
   {
-    "name": "Jesper Jespersson",
-    "handicap": 10.1,
-    "id": "player-1769541341218-9odxnxnkq"
+    "name": "Oskar Ydenius",
+    "handicap": 35,
+    "id": "player-1770056955313-nnj6nk1qk"
+  },
+  {
+    "name": "Jacob Wallersköld",
+    "handicap": 8,
+    "id": "player-1770056962790-501c23my9"
+  },
+  {
+    "name": "Johan Lindskog",
+    "handicap": 3,
+    "id": "player-1770056971214-pxuo2tj6j"
+  },
+  {
+    "name": "Philip Melin",
+    "handicap": 17,
+    "id": "player-1770056978271-m38k0yvzr"
+  },
+  {
+    "name": "Arvid Rosberg",
+    "handicap": 10,
+    "id": "player-1770056987698-fww5ha28c"
+  },
+  {
+    "name": "Adam Åberg",
+    "handicap": 11,
+    "id": "player-1770056993622-x6hgf2h6k"
+  },
+  {
+    "name": "Oskar Svensson",
+    "handicap": 7,
+    "id": "player-1770057000657-op0kca294"
+  },
+  {
+    "name": "William Adelbertson",
+    "handicap": 12,
+    "id": "player-1770057011630-5prl24xv9"
+  },
+  {
+    "name": "Mikael Ahlin",
+    "handicap": 39,
+    "id": "player-1770057019536-xmjxkyce2"
   }
 ]

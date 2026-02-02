@@ -19,7 +19,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative rounded-2xl overflow-hidden">
         <img
-          src="/images/home-page/team-photo-2025.jpg"
+          src="/images/team-photos/team-photo-2025.jpg"
           alt="Touren 2025"
           className="w-full h-64 md:h-96 object-cover"
         />

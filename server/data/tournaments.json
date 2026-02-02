@@ -1,42 +1,42 @@
 [
   {
-    "id": "round-1",
-    "name": "Season Opener",
-    "course": "Bro Hof Slott",
-    "date": "2026-01-25",
-    "imageUrl": "\\images\\courses\\bro-hof-slott.webp",
-    "description": "The season kicks off at the beautiful Bro Hof Slott Golf Club.",
-    "isFinale": false,
-    "order": 2
-  },
-  {
-    "id": "round-2",
-    "name": "Spring Classic",
-    "course": "Ullna Golf Club",
-    "date": "2026-01-26",
-    "imageUrl": "\\images\\courses\\ullna.jpg",
-    "description": "A challenging parkland course with stunning views.",
-    "isFinale": false,
-    "order": 3
-  },
-  {
-    "id": "round-8",
-    "name": "Grand Finale - Spain",
-    "course": "Los Naranjos",
-    "date": "2026-11-15",
-    "imageUrl": "\\images\\courses\\los-naranjos.jpg",
-    "description": "The grand finale under the Spanish sun! Three days of golf, celebration, and crowning the champion.",
-    "isFinale": true,
-    "order": 4
-  },
-  {
-    "name": "Test tournament",
-    "course": "Kalle Anka GK",
-    "date": "2026-01-24",
-    "description": "Test",
-    "imageUrl": "",
+    "name": "Omgång 1",
+    "course": "Riksten",
+    "date": "2025-04-27",
+    "description": "",
+    "imageUrl": "/images/courses/riksten.jpg",
     "isFinale": false,
     "order": 1,
-    "id": "round-1769337317529-q2i7lq7zy"
+    "id": "round-1770056612371-83cngwhkp"
+  },
+  {
+    "name": "Omgång 2",
+    "course": "Brollsta",
+    "date": "2025-05-24",
+    "description": "",
+    "imageUrl": "/images/courses/brollsta.jpg",
+    "isFinale": false,
+    "order": 2,
+    "id": "round-1770056699286-q1fyiwfv5"
+  },
+  {
+    "name": "Omgång 3",
+    "course": "Vidbynäs South Course",
+    "date": "2025-06-14",
+    "description": "",
+    "imageUrl": "/images/courses/vidbynas.jpg",
+    "isFinale": false,
+    "order": 3,
+    "id": "round-1770056793241-j8mzgeuzr"
+  },
+  {
+    "name": "Final",
+    "course": "Los Naranjos",
+    "date": "2026-11-21",
+    "description": "",
+    "imageUrl": "/images/courses/los-naranjos.jpg",
+    "isFinale": true,
+    "order": 4,
+    "id": "round-1770056858561-kwdahl9ik"
   }
 ]

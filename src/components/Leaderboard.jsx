@@ -28,6 +28,7 @@ export default function Leaderboard({ limit = null }) {
             <th className="px-4 py-3 text-center">Bästa 4 Tour-poäng</th>
             <th className="px-4 py-3 text-center">Total Tour-poäng</th>
             <th className="px-4 py-3 text-center hidden sm:table-cell">Rundor</th>
+            <th className="px-4 py-3 text-center hidden md:table-cell">Snitt Brutto</th>
             <th className="px-4 py-3 text-center hidden md:table-cell">Snitt Poäng runda</th>
             <th className="px-4 py-3 text-center hidden md:table-cell">Bästa Poäng runda</th>
           </tr>
@@ -63,6 +64,9 @@ export default function Leaderboard({ limit = null }) {
               </td>
               <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
                 {player.roundsPlayed}
+              </td>
+              <td className="px-4 py-3 text-center hidden md:table-cell text-gray-600">
+                {player.avgBrutto}
               </td>
               <td className="px-4 py-3 text-center hidden md:table-cell text-gray-600">
                 {player.avgRoundPoints}

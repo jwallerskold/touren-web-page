@@ -1,19 +1,19 @@
 [
   {
     "year": 2025,
-    "teamPhotoUrl": "\\images\\home-page\\team-photo-2025.jpg",
+    "teamPhotoUrl": "\\images\\team-photos\\team-photo-2025.jpg",
     "tourWinner": {
-      "name": "Erik Svensson",
+      "name": "Pontus Govenius",
       "photoUrl": "",
-      "points": 42,
-      "description": "Dominant throughout the season"
+      "points": 99,
+      "description": "Total dominans genom hela säsongen."
     },
     "finalWinner": {
-      "name": "Johan Andersson",
+      "name": "Pontus Govenius",
       "photoUrl": "",
-      "course": "Bro Hof Slott",
-      "description": "Amazing final round"
+      "course": "Los Naranjos",
+      "description": "Under en rafflande avslutning med en storspelande Per Molander i hälarna säkrade Pontus Finalen med en solid avslutning."
     },
-    "notes": "A memorable season with great weather and close competition."
+    "notes": "En minnesvärd första säsong."
   }
 ]

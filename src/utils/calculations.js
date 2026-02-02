@@ -18,6 +18,12 @@ export function calculateLeaderboard(players, results) {
       ? Math.max(...roundPointsArray)
       : '-'
 
+    // Brutto (gross score)
+    const grossScores = playerResults.map(r => r.grossScore).filter(s => s != null)
+    const avgBrutto = grossScores.length > 0
+      ? (grossScores.reduce((sum, s) => sum + s, 0) / grossScores.length).toFixed(1)
+      : '-'
+
     return {
       ...player,
       totalTourPoints,
@@ -25,6 +31,7 @@ export function calculateLeaderboard(players, results) {
       roundsPlayed,
       avgRoundPoints,
       bestRoundPoints,
+      avgBrutto,
     }
   })
 
