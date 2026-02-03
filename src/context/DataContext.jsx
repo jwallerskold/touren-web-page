@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 const DataContext = createContext()
 
 const API_URL = 'http://localhost:3001/api'
+const IS_PRODUCTION = import.meta.env.PROD
 
 export function DataProvider({ children }) {
   const [players, setPlayers] = useState([])
@@ -17,14 +18,17 @@ export function DataProvider({ children }) {
   // Admin password stored in session
   const getAdminPassword = () => sessionStorage.getItem('adminPassword') || ''
 
-  // Fetch all data from server
+  // Fetch all data - from static file in production, from API in development
   const fetchData = useCallback(async () => {
     try {
       setIsLoading(true)
       setError(null)
-      const response = await fetch(`${API_URL}/data`)
+
+      const dataUrl = IS_PRODUCTION ? '/data/data.json' : `${API_URL}/data`
+      const response = await fetch(dataUrl)
       if (!response.ok) throw new Error('Failed to fetch data')
       const data = await response.json()
+
       setPlayers(data.players)
       setTournaments(data.tournaments)
       setResults(data.results)
