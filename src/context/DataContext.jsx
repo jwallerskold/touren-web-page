@@ -12,6 +12,7 @@ export function DataProvider({ children }) {
   const [punishments, setPunishments] = useState([])
   const [rules, setRules] = useState('')
   const [history, setHistory] = useState([])
+  const [sitePassword, setSitePassword] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -35,6 +36,7 @@ export function DataProvider({ children }) {
       setPunishments(data.punishments)
       setRules(data.rules)
       setHistory(data.history || [])
+      setSitePassword(data.sitePassword || '')
     } catch (err) {
       setError(err.message)
       console.error('Error fetching data:', err)
@@ -207,6 +209,7 @@ export function DataProvider({ children }) {
     punishments,
     rules,
     history,
+    sitePassword,
     isLoading,
     error,
 

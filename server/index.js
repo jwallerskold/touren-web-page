@@ -44,6 +44,7 @@ const generateId = (prefix) => `${prefix}-${Date.now()}-${Math.random().toString
 
 // Get all data at once (for initial load)
 app.get('/api/data', (req, res) => {
+  const config = readData('config.json')
   res.json({
     players: readData('players.json'),
     tournaments: readData('tournaments.json'),
@@ -51,6 +52,7 @@ app.get('/api/data', (req, res) => {
     punishments: readData('punishments.json'),
     rules: readData('rules.json').content,
     history: readData('history.json'),
+    sitePassword: config.sitePassword || '',
   })
 })
 

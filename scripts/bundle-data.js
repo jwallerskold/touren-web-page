@@ -23,6 +23,7 @@ const readJSON = (file) => {
 }
 
 // Bundle all data into single file
+const config = readJSON('config.json')
 const bundledData = {
   players: readJSON('players.json'),
   tournaments: readJSON('tournaments.json'),
@@ -30,6 +31,7 @@ const bundledData = {
   punishments: readJSON('punishments.json'),
   rules: readJSON('rules.json').content,
   history: readJSON('history.json'),
+  sitePassword: config.sitePassword || '',
 }
 
 // Write bundled data

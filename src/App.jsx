@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { DataProvider } from './context/DataContext'
+import { DataProvider, useData } from './context/DataContext'
+import PasswordGate from './components/PasswordGate'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Tournaments from './pages/Tournaments'
@@ -14,9 +15,19 @@ const Admin = import.meta.env.DEV
   ? (await import('./pages/Admin')).default
   : () => null
 
-function App() {
+function AppRoutes() {
+  const { sitePassword, isLoading } = useData()
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-green-900 flex items-center justify-center">
+        <div className="text-white">Laddar...</div>
+      </div>
+    )
+  }
+
   return (
-    <DataProvider>
+    <PasswordGate sitePassword={sitePassword}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -31,6 +42,14 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+    </PasswordGate>
+  )
+}
+
+function App() {
+  return (
+    <DataProvider>
+      <AppRoutes />
     </DataProvider>
   )
 }
