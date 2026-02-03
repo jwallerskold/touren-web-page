@@ -40,16 +40,18 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              to="/admin"
-              className={`px-4 py-2 rounded-md transition-colors ${
-                location.pathname.startsWith('/admin')
-                  ? 'bg-green-700 text-white'
-                  : 'hover:bg-green-700/50'
-              }`}
-            >
-              Admin
-            </Link>
+            {import.meta.env.DEV && (
+              <Link
+                to="/admin"
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  location.pathname.startsWith('/admin')
+                    ? 'bg-green-700 text-white'
+                    : 'hover:bg-green-700/50'
+                }`}
+              >
+                Admin
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -84,17 +86,19 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              to="/admin"
-              className={`block px-4 py-2 rounded-md transition-colors ${
-                location.pathname.startsWith('/admin')
-                  ? 'bg-green-700 text-white'
-                  : 'hover:bg-green-700/50'
-              }`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Admin
-            </Link>
+            {import.meta.env.DEV && (
+              <Link
+                to="/admin"
+                className={`block px-4 py-2 rounded-md transition-colors ${
+                  location.pathname.startsWith('/admin')
+                    ? 'bg-green-700 text-white'
+                    : 'hover:bg-green-700/50'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Admin
+              </Link>
+            )}
           </div>
         )}
       </div>
