@@ -31,19 +31,8 @@ export default function History() {
               </div>
 
               <div className="p-6">
-                {/* Team Photo */}
-                {year.teamPhotoUrl && (
-                  <div className="mb-6">
-                    <img
-                      src={year.teamPhotoUrl}
-                      alt={`Touren ${year.year} - Lagbild`}
-                      className="w-full h-64 md:h-96 object-cover rounded-lg"
-                    />
-                  </div>
-                )}
-
                 {/* Winners Grid */}
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
                   {/* Tour Winner */}
                   <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6">
                     <div className="flex items-center gap-2 mb-4">
@@ -96,6 +85,17 @@ export default function History() {
                     </div>
                   </div>
                 </div>
+
+                {/* Team Photo */}
+                {year.teamPhotoUrl && (
+                  <div>
+                    <img
+                      src={year.teamPhotoUrl}
+                      alt={`Touren ${year.year} - Lagbild`}
+                      className="w-full h-64 md:h-96 object-cover rounded-lg"
+                    />
+                  </div>
+                )}
 
                 {/* Additional Notes */}
                 {year.notes && (
