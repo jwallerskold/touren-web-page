@@ -79,7 +79,8 @@ export default function Home() {
                 {currentLeader.name}
               </p>
               <p className="text-4xl font-bold text-green-700">{currentLeader.bestFourTourPoints}</p>
-              <p className="text-gray-500">Tour-poäng (bästa 4)</p>
+              <p className="text-gray-500">Bästa 4 + deltagande</p>
+              <p className="text-xs text-gray-400">{currentLeader.bestFourBasePoints} + {currentLeader.participationPoints}</p>
             </Link>
           ) : (
             <p className="text-gray-500">Inga resultat ännu</p>

@@ -45,14 +45,10 @@ export default function Leaderboard({ limit = null }) {
               </div>
               <div className="text-right">
                 <p className="text-2xl font-bold text-green-700">{player.bestFourTourPoints}</p>
-                <p className="text-xs text-gray-500">Bästa 4</p>
+                <p className="text-xs text-gray-500">Tourpoäng</p>
               </div>
             </div>
-            <div className="grid grid-cols-4 gap-2 text-center text-sm">
-              <div className="bg-gray-50 rounded p-2">
-                <p className="text-gray-500 text-xs">Total</p>
-                <p className="font-semibold">{player.totalTourPoints}</p>
-              </div>
+            <div className="grid grid-cols-3 gap-2 text-center text-sm">
               <div className="bg-gray-50 rounded p-2">
                 <p className="text-gray-500 text-xs">Brutto</p>
                 <p className="font-semibold">{player.avgBrutto}</p>
@@ -78,8 +74,7 @@ export default function Leaderboard({ limit = null }) {
               <tr>
                 <th className="px-3 py-3 text-left">#</th>
                 <th className="px-3 py-3 text-left">Spelare</th>
-                <th className="px-3 py-3 text-center">Bästa 4</th>
-                <th className="px-3 py-3 text-center">Total</th>
+                <th className="px-3 py-3 text-center" title="Bästa 4 tävlingspoäng + deltagandebonus">Tourpoäng</th>
                 <th className="px-3 py-3 text-center">Rundor</th>
                 <th className="px-3 py-3 text-center">Brutto</th>
                 <th className="px-3 py-3 text-center hidden lg:table-cell">Putts</th>
@@ -107,11 +102,8 @@ export default function Leaderboard({ limit = null }) {
                       {player.name}
                     </Link>
                   </td>
-                  <td className="px-3 py-3 text-center font-bold text-green-700">
+                  <td className="px-3 py-3 text-center font-bold text-green-700" title={`${player.bestFourBasePoints} poäng + ${player.participationPoints} deltagande`}>
                     {player.bestFourTourPoints}
-                  </td>
-                  <td className="px-3 py-3 text-center text-gray-600">
-                    {player.totalTourPoints}
                   </td>
                   <td className="px-3 py-3 text-center text-gray-600">
                     {player.roundsPlayed}

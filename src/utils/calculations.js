@@ -1,3 +1,6 @@
+// Participation points per tournament
+const PARTICIPATION_POINTS = 2
+
 // Calculate leaderboard from results
 export function calculateLeaderboard(players, results) {
   const playerStats = players.map(player => {
@@ -6,7 +9,14 @@ export function calculateLeaderboard(players, results) {
     // Tour points (for standings)
     const totalTourPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
     const sortedTourPoints = playerResults.map(r => r.points).sort((a, b) => b - a)
-    const bestFourTourPoints = sortedTourPoints.slice(0, 4).reduce((sum, p) => sum + p, 0)
+    const bestFourBasePoints = sortedTourPoints.slice(0, 4).reduce((sum, p) => sum + p, 0)
+
+    // Participation points (for all tournaments participated)
+    const tournamentsPlayed = playerResults.length
+    const participationPoints = tournamentsPlayed * PARTICIPATION_POINTS
+
+    // Best 4 tour points = best 4 tournament points + all participation points
+    const bestFourTourPoints = bestFourBasePoints + participationPoints
 
     // Round points (golf points per round)
     const roundsPlayed = playerResults.length
@@ -46,6 +56,8 @@ export function calculateLeaderboard(players, results) {
       ...player,
       totalTourPoints,
       bestFourTourPoints,
+      bestFourBasePoints,
+      participationPoints,
       roundsPlayed,
       avgRoundPoints,
       bestRoundPoints,
@@ -129,8 +141,16 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
   // Tour points
   const totalTourPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
 
-  // Round points (golf points)
+  // Participation points
   const roundsPlayed = playerResults.length
+  const participationPoints = roundsPlayed * PARTICIPATION_POINTS
+
+  // Best 4 calculation
+  const sortedTourPoints = playerResults.map(r => r.points).sort((a, b) => b - a)
+  const bestFourBasePoints = sortedTourPoints.slice(0, 4).reduce((sum, p) => sum + p, 0)
+  const bestFourTourPoints = bestFourBasePoints + participationPoints
+
+  // Round points (golf points)
   const roundPointsArray = playerResults.map(r => r.roundPoints || 0)
   const avgRoundPoints = roundsPlayed > 0
     ? (roundPointsArray.reduce((sum, p) => sum + p, 0) / roundsPlayed).toFixed(1)
@@ -168,6 +188,9 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
   return {
     ...player,
     totalTourPoints,
+    bestFourTourPoints,
+    bestFourBasePoints,
+    participationPoints,
     roundsPlayed,
     avgRoundPoints,
     bestRoundPoints,
