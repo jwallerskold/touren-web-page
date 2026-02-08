@@ -3,7 +3,7 @@ import { useData } from '../context/DataContext'
 import { calculateLeaderboard } from '../utils/calculations'
 
 export default function Leaderboard({ limit = null }) {
-  const { players, results } = useData()
+  const { players, filteredResults: results } = useData()
   let leaderboard = calculateLeaderboard(players, results)
 
   if (limit) {

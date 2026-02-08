@@ -8,7 +8,7 @@ import AccumulatedPunishmentsChart from '../components/AccumulatedPunishmentsCha
 
 export default function Stats() {
   const [activeTab, setActiveTab] = useState('leaderboard')
-  const { players, isLoading } = useData()
+  const { players, isLoading, selectedYear } = useData()
 
   if (isLoading) {
     return <div className="text-center py-12">Laddar...</div>
@@ -24,7 +24,7 @@ export default function Stats() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Statistik</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Statistik {selectedYear}</h1>
 
       {/* Tabs */}
       <div className="flex border-b border-gray-200 mb-6">

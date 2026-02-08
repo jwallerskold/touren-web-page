@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react'
 
 const DataContext = createContext()
 
@@ -13,6 +13,8 @@ export function DataProvider({ children }) {
   const [rules, setRules] = useState('')
   const [history, setHistory] = useState([])
   const [sitePassword, setSitePassword] = useState('')
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
+  const [selectedYear, setSelectedYear] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -37,6 +39,8 @@ export function DataProvider({ children }) {
       setRules(data.rules)
       setHistory(data.history || [])
       setSitePassword(data.sitePassword || '')
+      setCurrentYear(data.currentYear || new Date().getFullYear())
+      setSelectedYear(data.currentYear || new Date().getFullYear())
     } catch (err) {
       setError(err.message)
       console.error('Error fetching data:', err)
@@ -201,8 +205,36 @@ export function DataProvider({ children }) {
     await fetchData()
   }
 
+  // Get available years from tournaments
+  const availableYears = useMemo(() => {
+    const years = [...new Set(tournaments.map(t => t.year).filter(Boolean))]
+    // Always include current year even if no tournaments yet
+    if (!years.includes(currentYear)) {
+      years.push(currentYear)
+    }
+    return years.sort((a, b) => b - a) // Descending order
+  }, [tournaments, currentYear])
+
+  // Year-filtered data
+  const filteredTournaments = useMemo(() => {
+    if (!selectedYear) return tournaments
+    return tournaments.filter(t => t.year === selectedYear)
+  }, [tournaments, selectedYear])
+
+  const filteredTournamentIds = useMemo(() => {
+    return new Set(filteredTournaments.map(t => t.id))
+  }, [filteredTournaments])
+
+  const filteredResults = useMemo(() => {
+    return results.filter(r => filteredTournamentIds.has(r.tournamentId))
+  }, [results, filteredTournamentIds])
+
+  const filteredPunishments = useMemo(() => {
+    return punishments.filter(p => filteredTournamentIds.has(p.tournamentId))
+  }, [punishments, filteredTournamentIds])
+
   const value = {
-    // Data
+    // Data (unfiltered)
     players,
     tournaments,
     results,
@@ -212,6 +244,17 @@ export function DataProvider({ children }) {
     sitePassword,
     isLoading,
     error,
+
+    // Year selection
+    currentYear,
+    selectedYear,
+    setSelectedYear,
+    availableYears,
+
+    // Year-filtered data
+    filteredTournaments,
+    filteredResults,
+    filteredPunishments,
 
     // Auth
     verifyPassword,

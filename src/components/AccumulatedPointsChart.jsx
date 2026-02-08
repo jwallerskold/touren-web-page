@@ -26,7 +26,7 @@ const COLORS = [
 ]
 
 export default function AccumulatedPointsChart() {
-  const { players, results, tournaments } = useData()
+  const { players, filteredResults: results, filteredTournaments: tournaments } = useData()
 
   if (tournaments.length === 0 || results.length === 0) {
     return (

@@ -4,7 +4,7 @@ import { getPlayerStats, calculateLeaderboard, formatDate } from '../utils/calcu
 
 export default function PlayerStats() {
   const { playerId } = useParams()
-  const { players, results, punishments, tournaments, isLoading } = useData()
+  const { players, filteredResults: results, filteredPunishments: punishments, filteredTournaments: tournaments, isLoading, selectedYear } = useData()
 
   if (isLoading) {
     return <div className="text-center py-12">Laddar...</div>
@@ -35,7 +35,7 @@ export default function PlayerStats() {
       <div className="bg-white rounded-xl shadow-md p-6 mb-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">{playerStats.name}</h1>
+            <h1 className="text-3xl font-bold text-gray-800">{playerStats.name} - {selectedYear}</h1>
             <p className="text-gray-600">Handicap: {playerStats.handicap}</p>
           </div>
           {rank > 0 && (

@@ -4,7 +4,7 @@ import { getNextTournament, getCurrentLeader, calculateLeaderboard, formatDate }
 import Leaderboard from '../components/Leaderboard'
 
 export default function Home() {
-  const { players, results, tournaments, isLoading } = useData()
+  const { players, filteredResults: results, filteredTournaments: tournaments, isLoading, selectedYear } = useData()
 
   if (isLoading) {
     return <div className="text-center py-12">Laddar...</div>
@@ -25,7 +25,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Touren 2026</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Touren {selectedYear}</h1>
           <div className="flex flex-wrap gap-4">
             <Link
               to="/tournaments"

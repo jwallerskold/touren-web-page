@@ -18,7 +18,8 @@ export default function Admin() {
     saveRules,
     addHistoryYear, updateHistoryYear, deleteHistoryYear,
     resetData, isLoading,
-    verifyPassword, getAdminPassword
+    verifyPassword, getAdminPassword,
+    currentYear
   } = useData()
 
   useEffect(() => {
@@ -139,6 +140,7 @@ export default function Admin() {
           addTournament={addTournament}
           updateTournament={updateTournament}
           deleteTournament={deleteTournament}
+          currentYear={currentYear}
         />
       )}
       {activeTab === 'results' && (
@@ -300,10 +302,10 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
 }
 
 // Tournaments Management
-function TournamentsAdmin({ tournaments, addTournament, updateTournament, deleteTournament }) {
+function TournamentsAdmin({ tournaments, addTournament, updateTournament, deleteTournament, currentYear }) {
   const [editingId, setEditingId] = useState(null)
   const [formData, setFormData] = useState({
-    name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: ''
+    name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '', year: currentYear || new Date().getFullYear()
   })
 
   const handleSubmit = (e) => {
@@ -311,6 +313,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
     const data = {
       ...formData,
       order: parseInt(formData.order) || tournaments.length + 1,
+      year: parseInt(formData.year) || currentYear || new Date().getFullYear(),
     }
     if (editingId) {
       updateTournament(editingId, data)
@@ -318,7 +321,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
     } else {
       addTournament(data)
     }
-    setFormData({ name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '' })
+    setFormData({ name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '', year: currentYear || new Date().getFullYear() })
   }
 
   const startEdit = (tournament) => {
@@ -331,12 +334,13 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
       imageUrl: tournament.imageUrl || '',
       isFinale: tournament.isFinale,
       order: tournament.order.toString(),
+      year: tournament.year || currentYear || new Date().getFullYear(),
     })
   }
 
   const cancelEdit = () => {
     setEditingId(null)
-    setFormData({ name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '' })
+    setFormData({ name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '', year: currentYear || new Date().getFullYear() })
   }
 
   const sortedTournaments = [...tournaments].sort((a, b) => a.order - b.order)
@@ -387,6 +391,16 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
               onChange={(e) => setFormData({ ...formData, order: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
               placeholder="e.g., 1, 2, 3..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Säsong (år)</label>
+            <input
+              type="number"
+              value={formData.year}
+              onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              placeholder="e.g., 2025, 2026..."
             />
           </div>
           <div className="md:col-span-2">
@@ -442,6 +456,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
               <span className="text-gray-500 mx-2">-</span>
               <span className="text-gray-600">{tournament.course}</span>
               <span className="text-gray-400 ml-2">({formatDate(tournament.date)})</span>
+              <span className="ml-2 bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs">{tournament.year || '?'}</span>
               {tournament.isFinale && (
                 <span className="ml-2 bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded text-xs">FINALE</span>
               )}

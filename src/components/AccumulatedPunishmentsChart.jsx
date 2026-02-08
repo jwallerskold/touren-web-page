@@ -26,7 +26,7 @@ const COLORS = [
 ]
 
 export default function AccumulatedPunishmentsChart() {
-  const { players, punishments, tournaments, results } = useData()
+  const { players, filteredPunishments: punishments, filteredTournaments: tournaments, filteredResults: results } = useData()
 
   if (tournaments.length === 0 || punishments.length === 0 || results.length === 0) {
     return (

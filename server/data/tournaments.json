@@ -7,6 +7,7 @@
     "imageUrl": "/images/courses/riksten.jpg",
     "isFinale": false,
     "order": 1,
+    "year": 2025,
     "id": "round-1770056612371-83cngwhkp"
   },
   {
@@ -17,6 +18,7 @@
     "imageUrl": "/images/courses/brollsta.jpg",
     "isFinale": false,
     "order": 2,
+    "year": 2025,
     "id": "round-1770056699286-q1fyiwfv5"
   },
   {
@@ -27,16 +29,18 @@
     "imageUrl": "/images/courses/vidbynas.jpg",
     "isFinale": false,
     "order": 3,
+    "year": 2025,
     "id": "round-1770056793241-j8mzgeuzr"
   },
   {
     "name": "Final",
     "course": "Los Naranjos",
-    "date": "2026-11-21",
+    "date": "2025-11-21",
     "description": "",
     "imageUrl": "/images/courses/los-naranjos.jpg",
     "isFinale": true,
     "order": 4,
+    "year": 2025,
     "id": "round-1770056858561-kwdahl9ik"
   }
 ]

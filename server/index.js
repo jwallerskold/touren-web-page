@@ -53,6 +53,7 @@ app.get('/api/data', (req, res) => {
     rules: readData('rules.json').content,
     history: readData('history.json'),
     sitePassword: config.sitePassword || '',
+    currentYear: config.currentYear || new Date().getFullYear(),
   })
 })
 

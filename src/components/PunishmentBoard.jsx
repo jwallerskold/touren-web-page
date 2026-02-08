@@ -3,7 +3,7 @@ import { useData } from '../context/DataContext'
 import { calculatePunishmentBoard } from '../utils/calculations'
 
 export default function PunishmentBoard({ limit = null }) {
-  const { players, punishments, tournaments } = useData()
+  const { players, filteredPunishments: punishments, filteredTournaments: tournaments } = useData()
   let board = calculatePunishmentBoard(players, punishments, tournaments)
 
   // Filter out players with no punishments

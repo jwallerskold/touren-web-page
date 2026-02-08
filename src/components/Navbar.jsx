@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import YearSelector from './YearSelector'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -26,7 +27,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-1">
+          <div className="hidden md:flex items-center space-x-1">
             {navLinks.map(link => (
               <Link
                 key={link.to}
@@ -52,6 +53,9 @@ export default function Navbar() {
                 Admin
               </Link>
             )}
+            <div className="ml-4 pl-4 border-l border-green-600">
+              <YearSelector />
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -99,6 +103,9 @@ export default function Navbar() {
                 Admin
               </Link>
             )}
+            <div className="px-4 py-2 border-t border-green-600 mt-2 pt-2">
+              <YearSelector />
+            </div>
           </div>
         )}
       </div>

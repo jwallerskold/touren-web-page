@@ -32,6 +32,7 @@ const bundledData = {
   rules: readJSON('rules.json').content,
   history: readJSON('history.json'),
   sitePassword: config.sitePassword || '',
+  currentYear: config.currentYear || new Date().getFullYear(),
 }
 
 // Write bundled data

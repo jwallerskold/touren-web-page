@@ -2,7 +2,7 @@ import { useData } from '../context/DataContext'
 import TournamentCard from '../components/TournamentCard'
 
 export default function Tournaments() {
-  const { tournaments, isLoading } = useData()
+  const { filteredTournaments: tournaments, isLoading, selectedYear } = useData()
 
   if (isLoading) {
     return <div className="text-center py-12">Laddar...</div>
@@ -13,7 +13,7 @@ export default function Tournaments() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-2">Tävlingar</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-2">Tävlingar {selectedYear}</h1>
       <p className="text-gray-600 mb-8">
         {tournaments.length} rundor under säsongen, som kulminerar i Grand Finale!
       </p>
