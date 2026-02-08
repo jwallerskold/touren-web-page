@@ -4,16 +4,16 @@
     "teamPhotoUrl": "\\images\\team-photos\\team-photo-2025.jpg",
     "tourWinner": {
       "name": "Pontus Govenius",
-      "photoUrl": "",
-      "points": 99,
-      "description": "Total dominans genom hela säsongen."
+      "photoUrl": "/images/history/tour-winner-2025.jpg",
+      "points": 45,
+      "description": "Pontus steg fram som golftourens obestridde dominant och lämnade sina konkurrenter i sitt spår genom en säsong präglad av överlägsen precision, orubbligt lugn och strategiska framspelningar vilket förevigade hans namn i tourens historia."
     },
     "finalWinner": {
       "name": "Pontus Govenius",
-      "photoUrl": "",
+      "photoUrl": "/images/history/tour-winner-2025.jpg",
       "course": "Los Naranjos",
-      "description": "Under en rafflande avslutning med en storspelande Per Molander i hälarna säkrade Pontus Finalen med en solid avslutning."
+      "description": "När dramat nådde sin kulmen och en storspelande Per Molander hotade att vända allt, klev Pontus fram, stod pall för pressen och avgjorde finalen med en avslutning värdig en mästare."
     },
-    "notes": "En minnesvärd första säsong."
+    "notes": ""
   }
 ]
