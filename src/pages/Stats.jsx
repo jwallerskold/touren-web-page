@@ -15,32 +15,35 @@ export default function Stats() {
   }
 
   const tabs = [
-    { id: 'leaderboard', label: 'Ställning' },
-    { id: 'punishments', label: 'Straffavgifter' },
-    { id: 'points-chart', label: 'Poänggraf' },
-    { id: 'punishments-chart', label: 'Straffgraf' },
-    { id: 'players', label: 'Alla spelare' },
+    { id: 'leaderboard', label: 'Ställning', shortLabel: 'Ställning' },
+    { id: 'punishments', label: 'Straffavgifter', shortLabel: 'Straff' },
+    { id: 'points-chart', label: 'Poänggraf', shortLabel: 'Poäng' },
+    { id: 'punishments-chart', label: 'Straffgraf', shortLabel: 'Straffgraf' },
+    { id: 'players', label: 'Alla spelare', shortLabel: 'Spelare' },
   ]
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Statistik {selectedYear}</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">Statistik {selectedYear}</h1>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-6">
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-6 py-3 font-medium transition-colors ${
-              activeTab === tab.id
-                ? 'text-green-700 border-b-2 border-green-700'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
+      {/* Tabs - scrollable on mobile */}
+      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex border-b border-gray-200 mb-4 sm:mb-6 min-w-max sm:min-w-0">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-3 sm:px-6 py-2 sm:py-3 font-medium transition-colors whitespace-nowrap text-sm sm:text-base ${
+                activeTab === tab.id
+                  ? 'text-green-700 border-b-2 border-green-700'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <span className="sm:hidden">{tab.shortLabel}</span>
+              <span className="hidden sm:inline">{tab.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Tab Content */}
