@@ -53,7 +53,7 @@ export default function PlayerStats() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide">Total Tour-poäng</p>
           <p className="text-3xl font-bold text-green-700">{playerStats.totalTourPoints}</p>
@@ -63,8 +63,24 @@ export default function PlayerStats() {
           <p className="text-3xl font-bold text-gray-800">{playerStats.roundsPlayed}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Snitt Brutto</p>
+          <p className="text-3xl font-bold text-gray-800">{playerStats.avgBrutto}</p>
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide">Snitt Poäng runda</p>
           <p className="text-3xl font-bold text-gray-800">{playerStats.avgRoundPoints}</p>
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-6 text-center">
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Snitt Putts</p>
+          <p className="text-3xl font-bold text-gray-800">{playerStats.avgPutts}</p>
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-6 text-center">
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Fairways</p>
+          <p className="text-3xl font-bold text-gray-800">{playerStats.fairwaysPct !== '-' ? `${playerStats.fairwaysPct}%` : '-'}</p>
+        </div>
+        <div className="bg-white rounded-xl shadow-md p-6 text-center">
+          <p className="text-sm text-gray-500 uppercase tracking-wide">GIR</p>
+          <p className="text-3xl font-bold text-gray-800">{playerStats.girPct !== '-' ? `${playerStats.girPct}%` : '-'}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide">Bästa Poäng runda</p>
@@ -84,6 +100,9 @@ export default function PlayerStats() {
                     <th className="px-4 py-3 text-left">Tävling</th>
                     <th className="px-4 py-3 text-center">Pos</th>
                     <th className="px-4 py-3 text-center">Brutto</th>
+                    <th className="px-4 py-3 text-center hidden sm:table-cell">Putts</th>
+                    <th className="px-4 py-3 text-center hidden sm:table-cell">FW</th>
+                    <th className="px-4 py-3 text-center hidden sm:table-cell">GIR</th>
                     <th className="px-4 py-3 text-center">Poäng runda</th>
                     <th className="px-4 py-3 text-center">Tour-poäng</th>
                   </tr>
@@ -112,6 +131,15 @@ export default function PlayerStats() {
                       </td>
                       <td className="px-4 py-3 text-center text-gray-600">
                         {result.grossScore}
+                      </td>
+                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                        {result.putts || '-'}
+                      </td>
+                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                        {result.fairwaysHit != null ? `${result.fairwaysHit}/14` : '-'}
+                      </td>
+                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                        {result.greensInRegulation != null ? `${result.greensInRegulation}/18` : '-'}
                       </td>
                       <td className="px-4 py-3 text-center text-gray-600">
                         {result.roundPoints || '-'}

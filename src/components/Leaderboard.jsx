@@ -29,6 +29,9 @@ export default function Leaderboard({ limit = null }) {
             <th className="px-4 py-3 text-center">Total Tour-poäng</th>
             <th className="px-4 py-3 text-center hidden sm:table-cell">Rundor</th>
             <th className="px-4 py-3 text-center hidden md:table-cell">Snitt Brutto</th>
+            <th className="px-4 py-3 text-center hidden lg:table-cell">Snitt Putts</th>
+            <th className="px-4 py-3 text-center hidden lg:table-cell">Fairways %</th>
+            <th className="px-4 py-3 text-center hidden lg:table-cell">GIR %</th>
             <th className="px-4 py-3 text-center hidden md:table-cell">Snitt Poäng runda</th>
             <th className="px-4 py-3 text-center hidden md:table-cell">Bästa Poäng runda</th>
           </tr>
@@ -67,6 +70,15 @@ export default function Leaderboard({ limit = null }) {
               </td>
               <td className="px-4 py-3 text-center hidden md:table-cell text-gray-600">
                 {player.avgBrutto}
+              </td>
+              <td className="px-4 py-3 text-center hidden lg:table-cell text-gray-600">
+                {player.avgPutts}
+              </td>
+              <td className="px-4 py-3 text-center hidden lg:table-cell text-gray-600">
+                {player.fairwaysPct !== '-' ? `${player.fairwaysPct}%` : '-'}
+              </td>
+              <td className="px-4 py-3 text-center hidden lg:table-cell text-gray-600">
+                {player.girPct !== '-' ? `${player.girPct}%` : '-'}
               </td>
               <td className="px-4 py-3 text-center hidden md:table-cell text-gray-600">
                 {player.avgRoundPoints}

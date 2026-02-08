@@ -97,6 +97,9 @@ export default function TournamentDetail() {
                   <th className="px-4 py-3 text-left">Pos</th>
                   <th className="px-4 py-3 text-left">Spelare</th>
                   <th className="px-4 py-3 text-center">Brutto</th>
+                  <th className="px-4 py-3 text-center hidden sm:table-cell">Putts</th>
+                  <th className="px-4 py-3 text-center hidden sm:table-cell">FW</th>
+                  <th className="px-4 py-3 text-center hidden sm:table-cell">GIR</th>
                   <th className="px-4 py-3 text-center">Poäng runda</th>
                   <th className="px-4 py-3 text-center">Tour-poäng</th>
                 </tr>
@@ -129,6 +132,15 @@ export default function TournamentDetail() {
                     </td>
                     <td className="px-4 py-3 text-center text-gray-600">
                       {result.grossScore}
+                    </td>
+                    <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                      {result.putts || '-'}
+                    </td>
+                    <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                      {result.fairwaysHit != null ? `${result.fairwaysHit}/14` : '-'}
+                    </td>
+                    <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                      {result.greensInRegulation != null ? `${result.greensInRegulation}/18` : '-'}
                     </td>
                     <td className="px-4 py-3 text-center text-gray-600">
                       {result.roundPoints || '-'}

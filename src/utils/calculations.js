@@ -24,6 +24,24 @@ export function calculateLeaderboard(players, results) {
       ? (grossScores.reduce((sum, s) => sum + s, 0) / grossScores.length).toFixed(1)
       : '-'
 
+    // Putts per round (average)
+    const puttsArray = playerResults.map(r => r.putts).filter(p => p != null)
+    const avgPutts = puttsArray.length > 0
+      ? (puttsArray.reduce((sum, p) => sum + p, 0) / puttsArray.length).toFixed(1)
+      : '-'
+
+    // Fairways hit (percentage) - assuming 14 fairways per round
+    const fairwaysArray = playerResults.map(r => r.fairwaysHit).filter(f => f != null)
+    const fairwaysPct = fairwaysArray.length > 0
+      ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / (fairwaysArray.length * 14)) * 100)
+      : '-'
+
+    // Greens in regulation (percentage) - assuming 18 greens per round
+    const girArray = playerResults.map(r => r.greensInRegulation).filter(g => g != null)
+    const girPct = girArray.length > 0
+      ? Math.round((girArray.reduce((sum, g) => sum + g, 0) / (girArray.length * 18)) * 100)
+      : '-'
+
     return {
       ...player,
       totalTourPoints,
@@ -32,6 +50,9 @@ export function calculateLeaderboard(players, results) {
       avgRoundPoints,
       bestRoundPoints,
       avgBrutto,
+      avgPutts,
+      fairwaysPct,
+      girPct,
     }
   })
 
@@ -118,6 +139,30 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
     ? Math.max(...roundPointsArray)
     : '-'
 
+  // Brutto (gross score)
+  const grossScores = playerResults.map(r => r.grossScore).filter(s => s != null)
+  const avgBrutto = grossScores.length > 0
+    ? (grossScores.reduce((sum, s) => sum + s, 0) / grossScores.length).toFixed(1)
+    : '-'
+
+  // Putts per round (average)
+  const puttsArray = playerResults.map(r => r.putts).filter(p => p != null)
+  const avgPutts = puttsArray.length > 0
+    ? (puttsArray.reduce((sum, p) => sum + p, 0) / puttsArray.length).toFixed(1)
+    : '-'
+
+  // Fairways hit (percentage)
+  const fairwaysArray = playerResults.map(r => r.fairwaysHit).filter(f => f != null)
+  const fairwaysPct = fairwaysArray.length > 0
+    ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / (fairwaysArray.length * 14)) * 100)
+    : '-'
+
+  // Greens in regulation (percentage)
+  const girArray = playerResults.map(r => r.greensInRegulation).filter(g => g != null)
+  const girPct = girArray.length > 0
+    ? Math.round((girArray.reduce((sum, g) => sum + g, 0) / (girArray.length * 18)) * 100)
+    : '-'
+
   const totalPunishmentFees = playerPunishments.reduce((sum, p) => sum + p.amount, 0)
 
   return {
@@ -126,6 +171,10 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
     roundsPlayed,
     avgRoundPoints,
     bestRoundPoints,
+    avgBrutto,
+    avgPutts,
+    fairwaysPct,
+    girPct,
     totalPunishmentFees,
     results: playerResults,
     punishments: playerPunishments,
