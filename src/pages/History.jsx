@@ -37,7 +37,7 @@ export default function History() {
                   <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6">
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-2xl">🏆</span>
-                      <h3 className="text-lg font-bold text-gray-800">Tourvinnare</h3>
+                      <h3 className="text-lg font-bold text-gray-800">Peter Forsbergs Pokal</h3>
                     </div>
                     <div className="flex flex-col md:flex-row gap-4 items-center">
                       {year.tourWinner?.photoUrl && (

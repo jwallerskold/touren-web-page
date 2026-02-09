@@ -990,7 +990,7 @@ function HistoryAdmin({ history, addHistoryYear, updateHistoryYear, deleteHistor
 
         {/* Tour Winner */}
         <div className="border-t pt-4 mt-4">
-          <h3 className="font-bold text-gray-800 mb-3">Tourvinnare</h3>
+          <h3 className="font-bold text-gray-800 mb-3">Vinnare Peter Forsbergs Pokal</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Namn</label>
@@ -1143,7 +1143,7 @@ function HistoryAdmin({ history, addHistoryYear, updateHistoryYear, deleteHistor
                 <h3 className="text-xl font-bold text-gray-800">{yearData.year}</h3>
                 <div className="text-sm text-gray-600 mt-1">
                   {yearData.tourWinner?.name && (
-                    <p>Tourvinnare: <span className="font-medium">{yearData.tourWinner.name}</span></p>
+                    <p>Vinnare Peter Forsbergs Pokal: <span className="font-medium">{yearData.tourWinner.name}</span></p>
                   )}
                   {yearData.finalWinner?.name && (
                     <p>Finalvinnare: <span className="font-medium">{yearData.finalWinner.name}</span></p>
