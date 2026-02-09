@@ -36,9 +36,18 @@ export default function Leaderboard({ limit = null }) {
             className="block bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow"
           >
             <div className="flex items-center gap-3 mb-3">
-              <span className={`inline-flex items-center justify-center w-10 h-10 rounded-full text-lg font-bold ${getRankStyle(index)}`}>
-                {index + 1}
-              </span>
+              <div className="relative">
+                {player.photoUrl ? (
+                  <img src={player.photoUrl} alt={player.name} className="w-14 h-14 rounded-full object-cover" />
+                ) : (
+                  <div className="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium text-lg">
+                    {player.name.charAt(0)}
+                  </div>
+                )}
+                <span className={`absolute -bottom-1 -right-1 inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${getRankStyle(index)}`}>
+                  {index + 1}
+                </span>
+              </div>
               <div className="flex-1">
                 <p className="font-bold text-gray-800">{player.name}</p>
                 <p className="text-sm text-gray-500">{player.roundsPlayed} rundor</p>

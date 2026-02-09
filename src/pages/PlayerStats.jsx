@@ -34,9 +34,23 @@ export default function PlayerStats() {
       {/* Player Header */}
       <div className="bg-white rounded-xl shadow-md p-6 mb-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800">{playerStats.name} - {selectedYear}</h1>
-            <p className="text-gray-600">Handicap: {playerStats.handicap}</p>
+          <div className="flex items-center gap-4">
+            {playerStats.photoUrl ? (
+              <img
+                src={playerStats.photoUrl}
+                alt={playerStats.name}
+                className="w-24 h-24 rounded-full object-cover border-4 border-green-200"
+              />
+            ) : (
+              <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-3xl font-bold">
+                {playerStats.name.charAt(0)}
+              </div>
+            )}
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800">{playerStats.name}</h1>
+              <p className="text-gray-600">Handicap: {playerStats.handicap}</p>
+              <p className="text-sm text-gray-400">{selectedYear}</p>
+            </div>
           </div>
           {rank > 0 && (
             <div className={`px-6 py-3 rounded-xl text-center ${

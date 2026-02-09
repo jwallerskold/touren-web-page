@@ -181,7 +181,7 @@ export default function Admin() {
 // Players Management
 function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
   const [editingId, setEditingId] = useState(null)
-  const [formData, setFormData] = useState({ name: '', handicap: '' })
+  const [formData, setFormData] = useState({ name: '', handicap: '', photoUrl: '' })
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -189,25 +189,27 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
       updatePlayer(editingId, {
         name: formData.name,
         handicap: parseFloat(formData.handicap),
+        photoUrl: formData.photoUrl || null,
       })
       setEditingId(null)
     } else {
       addPlayer({
         name: formData.name,
         handicap: parseFloat(formData.handicap),
+        photoUrl: formData.photoUrl || null,
       })
     }
-    setFormData({ name: '', handicap: '' })
+    setFormData({ name: '', handicap: '', photoUrl: '' })
   }
 
   const startEdit = (player) => {
     setEditingId(player.id)
-    setFormData({ name: player.name, handicap: player.handicap.toString() })
+    setFormData({ name: player.name, handicap: player.handicap.toString(), photoUrl: player.photoUrl || '' })
   }
 
   const cancelEdit = () => {
     setEditingId(null)
-    setFormData({ name: '', handicap: '' })
+    setFormData({ name: '', handicap: '', photoUrl: '' })
   }
 
   return (
@@ -217,7 +219,7 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
       </h2>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <div className="grid md:grid-cols-2 gap-4 mb-4">
+        <div className="grid md:grid-cols-3 gap-4 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Namn</label>
             <input
@@ -237,6 +239,16 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
               onChange={(e) => setFormData({ ...formData, handicap: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
               required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Foto-URL</label>
+            <input
+              type="text"
+              value={formData.photoUrl}
+              onChange={(e) => setFormData({ ...formData, photoUrl: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+              placeholder="/images/players/namn.jpg"
             />
           </div>
         </div>
@@ -264,7 +276,7 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
         <table className="w-full">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-3 text-left">Namn</th>
+              <th className="px-4 py-3 text-left">Spelare</th>
               <th className="px-4 py-3 text-center">Handicap</th>
               <th className="px-4 py-3 text-right">Åtgärder</th>
             </tr>
@@ -272,7 +284,18 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
           <tbody>
             {players.map(player => (
               <tr key={player.id} className="border-t border-gray-100">
-                <td className="px-4 py-3">{player.name}</td>
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    {player.photoUrl ? (
+                      <img src={player.photoUrl} alt={player.name} className="w-10 h-10 rounded-full object-cover" />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm font-medium">
+                        {player.name.charAt(0)}
+                      </div>
+                    )}
+                    <span>{player.name}</span>
+                  </div>
+                </td>
                 <td className="px-4 py-3 text-center">{player.handicap}</td>
                 <td className="px-4 py-3 text-right">
                   <button
