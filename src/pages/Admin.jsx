@@ -430,7 +430,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
                 onChange={(e) => setFormData({ ...formData, isFinale: e.target.checked })}
                 className="mr-2"
               />
-              <span className="text-sm font-medium text-gray-700">Detta är Grand Finale</span>
+              <span className="text-sm font-medium text-gray-700">Detta är Tourfinalen</span>
             </label>
           </div>
         </div>
@@ -458,7 +458,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
               <span className="text-gray-400 ml-2">({formatDate(tournament.date)})</span>
               <span className="ml-2 bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs">{tournament.year || '?'}</span>
               {tournament.isFinale && (
-                <span className="ml-2 bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded text-xs">FINALE</span>
+                <span className="ml-2 bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded text-xs">TOURFINALEN</span>
               )}
             </div>
             <div>

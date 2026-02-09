@@ -59,7 +59,7 @@ export default function Home() {
               <p className="text-gray-500">{formatDate(nextTournament.date)}</p>
               {nextTournament.isFinale && (
                 <span className="inline-block mt-2 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
-                  Grand Finale!
+                  Tourfinalen!
                 </span>
               )}
             </Link>
@@ -127,7 +127,7 @@ export default function Home() {
         <section className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl p-8 text-white">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="text-3xl font-bold mb-2">Grand Finale i Spanien!</h2>
+              <h2 className="text-3xl font-bold mb-2">Tourfinalen i Spanien!</h2>
               <p className="text-yellow-100 mb-4 md:mb-0">
                 {tournaments.find(t => t.isFinale)?.course} - {formatDate(tournaments.find(t => t.isFinale)?.date)}
               </p>

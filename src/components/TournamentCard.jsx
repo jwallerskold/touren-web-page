@@ -30,7 +30,7 @@ export default function TournamentCard({ tournament }) {
         )}
         {tournament.isFinale && (
           <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold">
-            FINALE
+            TOURFINALEN
           </div>
         )}
         {isPast && (

@@ -43,11 +43,10 @@ export default function PasswordGate({ sitePassword, children }) {
   }
 
   return (
-    <div className="min-h-screen bg-green-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-green-900 flex flex-col items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-green-800 mb-2">Touren</h1>
-          <p className="text-gray-400 text-sm italic mt-2">Denna golftour har ingen koppling till Peter Forsberg.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -74,6 +73,10 @@ export default function PasswordGate({ sitePassword, children }) {
           </button>
         </form>
       </div>
+
+      <p className="text-green-200/60 text-xs italic mt-6 max-w-md text-center px-4">
+        Denna webbplats har ingen koppling till, är inte sponsrad av, stöds inte av och har ingen officiell anknytning till hockeyspelaren Peter Forsberg. Alla varumärken, namn och referenser till Peter Forsberg tillhör respektive rättighetsinnehavare och används endast i underhållningssyfte.
+      </p>
     </div>
   )
 }
