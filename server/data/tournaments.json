@@ -1,46 +1,101 @@
 [
   {
-    "name": "Omgång 1",
-    "course": "Riksten",
-    "date": "2025-04-27",
-    "description": "",
-    "imageUrl": "/images/courses/riksten.jpg",
+    "name": "Touren #1",
+    "course": "TBD",
+    "date": "2026-04-26",
+    "description": "Host: Per och Filip",
+    "imageUrl": "",
     "isFinale": false,
     "order": 1,
-    "year": 2025,
-    "id": "round-1770056612371-83cngwhkp"
+    "year": 2026,
+    "id": "round-1773255982088-bmnemsvv7"
   },
   {
-    "name": "Omgång 2",
-    "course": "Brollsta",
-    "date": "2025-05-24",
-    "description": "",
-    "imageUrl": "/images/courses/brollsta.jpg",
+    "name": "Touren #2",
+    "course": "TBD",
+    "date": "2026-05-31",
+    "description": "Host: Johan och Eric",
+    "imageUrl": "",
     "isFinale": false,
     "order": 2,
-    "year": 2025,
-    "id": "round-1770056699286-q1fyiwfv5"
+    "year": 2026,
+    "id": "round-1773256045690-0nx4wvgcq"
   },
   {
-    "name": "Omgång 3",
-    "course": "Vidbynäs South Course",
-    "date": "2025-06-14",
-    "description": "",
-    "imageUrl": "/images/courses/vidbynas.jpg",
+    "name": "Touren #3",
+    "course": "TBD",
+    "date": "2026-06-13",
+    "description": "Host: Filip och Mathias",
+    "imageUrl": "",
     "isFinale": false,
     "order": 3,
-    "year": 2025,
-    "id": "round-1770056793241-j8mzgeuzr"
+    "year": 2026,
+    "id": "round-1773256081925-ahmdswfm2"
   },
   {
-    "name": "Final",
+    "name": "Touren #4",
+    "course": "TBD",
+    "date": "2026-06-28",
+    "description": "Host: Anton och William",
+    "imageUrl": "",
+    "isFinale": false,
+    "order": 4,
+    "year": 2026,
+    "id": "round-1773256126017-dpkm3tgqb"
+  },
+  {
+    "name": "Touren #5",
+    "course": "TBD",
+    "date": "2026-08-28",
+    "description": "Host: Philip och Adam",
+    "imageUrl": "",
+    "isFinale": false,
+    "order": 5,
+    "year": 2026,
+    "id": "round-1773256163981-69frqglkv"
+  },
+  {
+    "name": "Touren #6",
+    "course": "TBD",
+    "date": "2026-09-20",
+    "description": "Host: Johan och Adelbert",
+    "imageUrl": "",
+    "isFinale": false,
+    "order": 6,
+    "year": 2026,
+    "id": "round-1773256196795-scxf81kbh"
+  },
+  {
+    "name": "Touren #7",
+    "course": "TBD",
+    "date": "2026-10-03",
+    "description": "Host: Anton och Jacob",
+    "imageUrl": "",
+    "isFinale": false,
+    "order": 6,
+    "year": 2026,
+    "id": "round-1773256228584-5rq5lknu9"
+  },
+  {
+    "name": "Tourfinalen Dag 1",
+    "course": "TBD",
+    "date": "2026-11-20",
+    "description": "Host: Adam",
+    "imageUrl": "",
+    "isFinale": true,
+    "order": 8,
+    "year": 2026,
+    "id": "round-1773256265755-ifkafe82z"
+  },
+  {
+    "name": "Tourfinalen Dag 2",
     "course": "Los Naranjos",
-    "date": "2025-11-21",
-    "description": "",
+    "date": "2026-11-21",
+    "description": "Host: Adam",
     "imageUrl": "/images/courses/los-naranjos.jpg",
     "isFinale": true,
-    "order": 4,
-    "year": 2025,
-    "id": "round-1770056858561-kwdahl9ik"
+    "order": 9,
+    "year": 2026,
+    "id": "round-1773256356480-j6ww5kx6w"
   }
 ]

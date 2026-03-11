@@ -59,5 +59,35 @@
     "name": "Mikael Ahlin",
     "handicap": 39,
     "id": "player-1770057019536-xmjxkyce2"
+  },
+  {
+    "name": "Per Molander",
+    "handicap": 35,
+    "photoUrl": null,
+    "id": "player-1773255808449-hvlpox81n"
+  },
+  {
+    "name": "William Eriksson",
+    "handicap": 36,
+    "photoUrl": null,
+    "id": "player-1773255857136-6qfypkkyn"
+  },
+  {
+    "name": "Karl \"Skins\" Setterberg",
+    "handicap": 10,
+    "photoUrl": null,
+    "id": "player-1773255876100-otaw534hn"
+  },
+  {
+    "name": "Mathias Lien",
+    "handicap": 20,
+    "photoUrl": null,
+    "id": "player-1773255887283-vcx0tkrfm"
+  },
+  {
+    "name": "Eric Hartmanis",
+    "handicap": 20,
+    "photoUrl": null,
+    "id": "player-1773255894548-x3d3jz86p"
   }
 ]
