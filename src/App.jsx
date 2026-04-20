@@ -27,22 +27,20 @@ function AppRoutes() {
   }
 
   return (
-    <PasswordGate sitePassword={sitePassword}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="tournaments" element={<Tournaments />} />
-            <Route path="tournaments/:id" element={<TournamentDetail />} />
-            <Route path="stadgar" element={<Rules />} />
-            <Route path="stats" element={<Stats />} />
-            <Route path="stats/:playerId" element={<PlayerStats />} />
-            <Route path="historia" element={<History />} />
-            {import.meta.env.DEV && <Route path="admin" element={<Admin />} />}
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </PasswordGate>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="tournaments" element={<Tournaments />} />
+          <Route path="tournaments/:id" element={<TournamentDetail />} />
+          <Route path="stadgar" element={<Rules />} />
+          <Route path="stats" element={<Stats />} />
+          <Route path="stats/:playerId" element={<PlayerStats />} />
+          <Route path="historia" element={<History />} />
+          {import.meta.env.DEV && <Route path="admin" element={<Admin />} />}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
