@@ -1,10 +1,10 @@
 [
   {
-    "name": "Touren #1",
-    "course": "TBD",
+    "name": "Touren 1 - Waxholm Open",
+    "course": "Waxholm GK",
     "date": "2026-04-26",
-    "description": "Host: Per och Filip",
-    "imageUrl": "\\images\\courses\\course_tbd.png",
+    "description": "Säsongen drar äntligen igång på Waxholm GK.\nFilip W och Per M står som värdar och lovar en tävling där både form och nerver sätts på prov efter vinteruppehållet.\nFrågan är vilka som kliver fram direkt och sätter tonen för årets tour.",
+    "imageUrl": "\\images\\courses\\waxholm.jpg",
     "isFinale": false,
     "order": 1,
     "year": 2026,
