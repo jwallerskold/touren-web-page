@@ -11,7 +11,7 @@ export default function PlayerStats() {
   }
 
   const playerStats = getPlayerStats(playerId, players, results, punishments, tournaments)
-  const leaderboard = calculateLeaderboard(players, results)
+  const leaderboard = calculateLeaderboard(players, results, tournaments)
   const rank = leaderboard.findIndex(p => p.id === playerId) + 1
 
   if (!playerStats) {
@@ -151,10 +151,10 @@ export default function PlayerStats() {
                         {result.putts || '-'}
                       </td>
                       <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
-                        {result.fairwaysHit != null ? `${result.fairwaysHit}/14` : '-'}
+                        {result.fairwaysHit != null ? `${(100*(result.fairwaysHit / result.availableTournamentFairways)).toFixed(0)}%` : '-'}
                       </td>
                       <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
-                        {result.greensInRegulation != null ? `${result.greensInRegulation}/18` : '-'}
+                        {result.greensInRegulation != null ? `${(100*(result.greensInRegulation / 18)).toFixed(0)}%` : '-'}
                       </td>
                       <td className="px-4 py-3 text-center text-gray-600">
                         {result.roundPoints || '-'}

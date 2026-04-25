@@ -328,7 +328,7 @@ function PlayersAdmin({ players, addPlayer, updatePlayer, deletePlayer }) {
 function TournamentsAdmin({ tournaments, addTournament, updateTournament, deleteTournament, currentYear }) {
   const [editingId, setEditingId] = useState(null)
   const [formData, setFormData] = useState({
-    name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '', year: currentYear || new Date().getFullYear()
+    name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '', year: currentYear || new Date().getFullYear(), availableFairways: ''
   })
 
   const handleSubmit = (e) => {
@@ -337,6 +337,7 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
       ...formData,
       order: parseInt(formData.order) || tournaments.length + 1,
       year: parseInt(formData.year) || currentYear || new Date().getFullYear(),
+      availableFairways: parseInt(formData.availableFairways) || 14
     }
     if (editingId) {
       updateTournament(editingId, data)
@@ -358,12 +359,13 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
       isFinale: tournament.isFinale,
       order: tournament.order.toString(),
       year: tournament.year || currentYear || new Date().getFullYear(),
+      availableFairways: tournament.availableFairways ? tournament.availableFairways.toString() : '14'
     })
   }
 
   const cancelEdit = () => {
     setEditingId(null)
-    setFormData({ name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '', year: currentYear || new Date().getFullYear() })
+    setFormData({ name: '', course: '', date: '', description: '', imageUrl: '', isFinale: false, order: '', year: currentYear || new Date().getFullYear(), availableFairways: '' })
   }
 
   const sortedTournaments = [...tournaments].sort((a, b) => a.order - b.order)
@@ -424,6 +426,16 @@ function TournamentsAdmin({ tournaments, addTournament, updateTournament, delete
               onChange={(e) => setFormData({ ...formData, year: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg"
               placeholder="e.g., 2025, 2026..."
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Antal fairways</label>
+            <input
+              type="number"
+              value={formData.availableFairways}
+              onChange={(e) => setFormData({ ...formData, availableFairways: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              placeholder="e.g., 13, 15..."
             />
           </div>
           <div className="md:col-span-2">

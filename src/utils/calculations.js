@@ -2,7 +2,7 @@
 const PARTICIPATION_POINTS = 2
 
 // Calculate leaderboard from results
-export function calculateLeaderboard(players, results) {
+export function calculateLeaderboard(players, results, tournaments) {
   const playerStats = players.map(player => {
     const playerResults = results.filter(r => r.playerId === player.id)
 
@@ -41,10 +41,18 @@ export function calculateLeaderboard(players, results) {
       : '-'
 
     // Fairways hit (percentage) - assuming 14 fairways per round
-    const fairwaysArray = playerResults.map(r => r.fairwaysHit).filter(f => f != null)
+    const availableFairways = results.filter(r => r.playerId === player.id)
+    .map(r => {
+      const tournament = tournaments.find(t => t.id === r.tournamentId)
+      return {
+        availableTournamentFairways: tournament?.availableFairways || 0,
+      }
+    }).reduce((sum, r) => sum + (r.availableTournamentFairways || 0), 0)
+
+    const fairwaysArray = playerResults.map(r => r.fairwaysHit).filter(f => f != null)    
     const fairwaysPct = fairwaysArray.length > 0
-      ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / (fairwaysArray.length * 14)) * 100)
-      : '-'
+    ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / (availableFairways)) * 100)
+    : '-'
 
     // Greens in regulation (percentage) - assuming 18 greens per round
     const girArray = playerResults.map(r => r.greensInRegulation).filter(g => g != null)
@@ -121,6 +129,7 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
         tournamentName: tournament?.name || 'Unknown',
         tournamentDate: tournament?.date || '',
         course: tournament?.course || '',
+        availableTournamentFairways: tournament?.availableFairways || 0,
       }
     })
     .sort((a, b) => new Date(a.tournamentDate) - new Date(b.tournamentDate))
@@ -173,8 +182,9 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
 
   // Fairways hit (percentage)
   const fairwaysArray = playerResults.map(r => r.fairwaysHit).filter(f => f != null)
+  const availableFairways = playerResults.reduce((sum, r) => sum + (r.availableTournamentFairways || 0), 0)
   const fairwaysPct = fairwaysArray.length > 0
-    ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / (fairwaysArray.length * 14)) * 100)
+    ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / availableFairways) * 100)
     : '-'
 
   // Greens in regulation (percentage)
@@ -217,8 +227,8 @@ export function getNextTournament(tournaments) {
 }
 
 // Get current leader
-export function getCurrentLeader(players, results) {
-  const leaderboard = calculateLeaderboard(players, results)
+export function getCurrentLeader(players, results, tournaments) {
+  const leaderboard = calculateLeaderboard(players, results, tournaments)
   return leaderboard[0] || null
 }
 

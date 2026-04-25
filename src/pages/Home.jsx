@@ -11,8 +11,8 @@ export default function Home() {
   }
 
   const nextTournament = getNextTournament(tournaments)
-  const currentLeader = getCurrentLeader(players, results)
-  const leaderboard = calculateLeaderboard(players, results)
+  const currentLeader = getCurrentLeader(players, results, tournaments)
+  const leaderboard = calculateLeaderboard(players, results, tournaments)
 
   return (
     <div className="space-y-8">

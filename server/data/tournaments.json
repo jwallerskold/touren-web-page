@@ -8,7 +8,8 @@
     "isFinale": false,
     "order": 1,
     "year": 2026,
-    "id": "round-1773255982088-bmnemsvv7"
+    "id": "round-1773255982088-bmnemsvv7",
+    "availableFairways": 13
   },
   {
     "name": "Touren #2",
@@ -19,7 +20,8 @@
     "isFinale": false,
     "order": 2,
     "year": 2026,
-    "id": "round-1773256045690-0nx4wvgcq"
+    "id": "round-1773256045690-0nx4wvgcq",
+    "availableFairways": 14
   },
   {
     "name": "Touren #3",
@@ -30,7 +32,8 @@
     "isFinale": false,
     "order": 3,
     "year": 2026,
-    "id": "round-1773256081925-ahmdswfm2"
+    "id": "round-1773256081925-ahmdswfm2",
+    "availableFairways": 14
   },
   {
     "name": "Touren #4",
@@ -41,7 +44,8 @@
     "isFinale": false,
     "order": 4,
     "year": 2026,
-    "id": "round-1773256126017-dpkm3tgqb"
+    "id": "round-1773256126017-dpkm3tgqb",
+    "availableFairways": 14
   },
   {
     "name": "Touren #5",
@@ -52,7 +56,8 @@
     "isFinale": false,
     "order": 5,
     "year": 2026,
-    "id": "round-1773256163981-69frqglkv"
+    "id": "round-1773256163981-69frqglkv",
+    "availableFairways": 14
   },
   {
     "name": "Touren #6",
@@ -63,7 +68,8 @@
     "isFinale": false,
     "order": 6,
     "year": 2026,
-    "id": "round-1773256196795-scxf81kbh"
+    "id": "round-1773256196795-scxf81kbh",
+    "availableFairways": 14
   },
   {
     "name": "Touren #7",
@@ -74,7 +80,8 @@
     "isFinale": false,
     "order": 6,
     "year": 2026,
-    "id": "round-1773256228584-5rq5lknu9"
+    "id": "round-1773256228584-5rq5lknu9",
+    "availableFairways": 14
   },
   {
     "name": "Tourfinalen Dag 1",
@@ -85,7 +92,8 @@
     "isFinale": true,
     "order": 8,
     "year": 2026,
-    "id": "round-1773256265755-ifkafe82z"
+    "id": "round-1773256265755-ifkafe82z",
+    "availableFairways": 14
   },
   {
     "name": "Tourfinalen Dag 2",
@@ -96,6 +104,7 @@
     "isFinale": true,
     "order": 9,
     "year": 2026,
-    "id": "round-1773256356480-j6ww5kx6w"
+    "id": "round-1773256356480-j6ww5kx6w",
+    "availableFairways": 14
   }
 ]

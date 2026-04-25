@@ -3,8 +3,8 @@ import { useData } from '../context/DataContext'
 import { calculateLeaderboard } from '../utils/calculations'
 
 export default function Leaderboard({ limit = null }) {
-  const { players, filteredResults: results } = useData()
-  let leaderboard = calculateLeaderboard(players, results)
+  const { players, filteredResults: results , tournaments} = useData()
+  let leaderboard = calculateLeaderboard(players, results, tournaments)
 
   if (limit) {
     leaderboard = leaderboard.slice(0, limit)

@@ -98,10 +98,11 @@ export default function TournamentDetail() {
                   <th className="px-4 py-3 text-left">Spelare</th>
                   <th className="px-4 py-3 text-center">Brutto</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell">Putts</th>
-                  <th className="px-4 py-3 text-center hidden sm:table-cell">FW</th>
+                  <th className="px-4 py-3 text-center hidden sm:table-cell">FIR</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell">GIR</th>
                   <th className="px-4 py-3 text-center">Poäng runda</th>
                   <th className="px-4 py-3 text-center">Tour-poäng</th>
+                  <th className="px-4 py-3 text-center">Deltagar-poäng</th>
                 </tr>
               </thead>
               <tbody>
@@ -137,16 +138,19 @@ export default function TournamentDetail() {
                       {result.putts || '-'}
                     </td>
                     <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
-                      {result.fairwaysHit != null ? `${result.fairwaysHit}/14` : '-'}
+                      {result.fairwaysHit != null ? `${(100*(result.fairwaysHit / tournament.availableFairways)).toFixed(0)}%` : '-'}
                     </td>
                     <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
-                      {result.greensInRegulation != null ? `${result.greensInRegulation}/18` : '-'}
+                      {result.greensInRegulation != null ? `${(100*(result.greensInRegulation / 18)).toFixed(0)}%` : '-'}
                     </td>
                     <td className="px-4 py-3 text-center text-gray-600">
                       {result.roundPoints || '-'}
                     </td>
                     <td className="px-4 py-3 text-center font-bold text-green-700">
                       {result.points}
+                    </td>
+                    <td className="px-4 py-3 text-center font-bold text-green-700">
+                      {2}
                     </td>
                   </tr>
                 ))}
