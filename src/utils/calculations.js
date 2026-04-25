@@ -270,7 +270,7 @@ export function calculateAccumulatedPoints(players, results, tournaments) {
       const playerResults = results.filter(
         r => r.playerId === player.id && tournamentIds.includes(r.tournamentId)
       )
-      const accumulatedPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
+      const accumulatedPoints = playerResults.reduce((sum, r) => sum + (r.points + PARTICIPATION_POINTS), 0)
       dataPoint[player.name] = accumulatedPoints
     })
 
