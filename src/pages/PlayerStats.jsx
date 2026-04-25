@@ -69,7 +69,7 @@ export default function PlayerStats() {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Bästa 4 + Deltagande</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Tourpoäng</p>
           <p className="text-3xl font-bold text-green-700">{playerStats.bestFourTourPoints}</p>
           <p className="text-xs text-gray-400">{playerStats.bestFourBasePoints} + {playerStats.participationPoints}</p>
         </div>
