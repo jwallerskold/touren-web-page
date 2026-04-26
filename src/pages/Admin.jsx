@@ -541,6 +541,7 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
           putts: existing?.putts || '',
           fairwaysHit: existing?.fairwaysHit || '',
           greensInRegulation: existing?.greensInRegulation || '',
+          ballsInWater: existing?.ballsInWater || '',
           participated: !!existing,
         }
       })
@@ -569,6 +570,7 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
         putts: r.putts ? parseInt(r.putts) : null,
         fairwaysHit: r.fairwaysHit ? parseInt(r.fairwaysHit) : null,
         greensInRegulation: r.greensInRegulation ? parseInt(r.greensInRegulation) : null,
+        ballsInWater: r.ballsInWater ? parseInt(r.ballsInWater) : null,
       }))
 
     setTournamentResults(selectedTournament, validResults)
@@ -605,8 +607,9 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
                 <th className="px-3 py-2 text-center">Pos</th>
                 <th className="px-3 py-2 text-center">Brutto</th>
                 <th className="px-3 py-2 text-center">Putts</th>
-                <th className="px-3 py-2 text-center">FW</th>
+                <th className="px-3 py-2 text-center">FIR</th>
                 <th className="px-3 py-2 text-center">GIR</th>
+                <th className="px-3 py-2 text-center">BiV</th>
                 <th className="px-3 py-2 text-center">Poäng runda</th>
                 <th className="px-3 py-2 text-center">Tour-poäng</th>
               </tr>
@@ -647,7 +650,6 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
                       onChange={(e) => updateFormRow(index, 'putts', e.target.value)}
                       className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
                       disabled={!row.participated}
-                      placeholder="32"
                     />
                   </td>
                   <td className="px-3 py-2">
@@ -657,7 +659,6 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
                       onChange={(e) => updateFormRow(index, 'fairwaysHit', e.target.value)}
                       className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
                       disabled={!row.participated}
-                      placeholder="/14"
                     />
                   </td>
                   <td className="px-3 py-2">
@@ -667,7 +668,15 @@ function ResultsAdmin({ tournaments, players, results, setTournamentResults }) {
                       onChange={(e) => updateFormRow(index, 'greensInRegulation', e.target.value)}
                       className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
                       disabled={!row.participated}
-                      placeholder="/18"
+                    />
+                  </td>
+                  <td className="px-3 py-2">
+                    <input
+                      type="number"
+                      value={row.ballsInWater}
+                      onChange={(e) => updateFormRow(index, 'ballsInWater', e.target.value)}
+                      className="w-16 px-2 py-1 border border-gray-300 rounded text-center"
+                      disabled={!row.participated}
                     />
                   </td>
                   <td className="px-3 py-2">

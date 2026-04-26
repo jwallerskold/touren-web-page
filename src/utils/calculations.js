@@ -60,6 +60,12 @@ export function calculateLeaderboard(players, results, tournaments) {
       ? Math.round((girArray.reduce((sum, g) => sum + g, 0) / (girArray.length * 18)) * 100)
       : '-'
 
+    // Balls in water total (for fun)
+    const ballsInWaterArray = playerResults.map(r => r.ballsInWater).filter(b => b != null)
+    const totalBallsInWater = ballsInWaterArray.length > 0
+      ? ballsInWaterArray.reduce((sum, b) => sum + b, 0)
+      : '-'
+
     return {
       ...player,
       totalTourPoints,
