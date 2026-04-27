@@ -24,3 +24,8 @@ public/data/
 *.njsproj
 *.sln
 *.sw?
+.claude/
+.vscode/
+
+# Other
+to-do.txt
