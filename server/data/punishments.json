@@ -1,44 +1,9 @@
 [
   {
-    "playerId": "player-1770056918210-5skpispvi",
-    "tournamentId": "round-1770056612371-83cngwhkp",
-    "amount": 150,
-    "reason": "Kastad klubba",
-    "id": "pun-1770058064908-c2a6nuao9"
-  },
-  {
-    "playerId": "player-1770056941011-zji1q8fo1",
-    "tournamentId": "round-1770056699286-q1fyiwfv5",
-    "amount": 200,
-    "reason": "Kort om damtee",
-    "id": "pun-1770058095967-59ne0pnuo"
-  },
-  {
-    "playerId": "player-1770056987698-fww5ha28c",
-    "tournamentId": "round-1770056793241-j8mzgeuzr",
-    "amount": 100,
-    "reason": "Kort om damtee",
-    "id": "pun-1770058117162-v1pyxu1mo"
-  },
-  {
-    "playerId": "player-1770056928981-x92dul661",
-    "tournamentId": "round-1770056612371-83cngwhkp",
-    "amount": 200,
-    "reason": "Kastad klubba",
-    "id": "pun-1770058135768-j8p4tpfz1"
-  },
-  {
-    "playerId": "player-1770056941011-zji1q8fo1",
-    "tournamentId": "round-1770056612371-83cngwhkp",
-    "amount": 200,
-    "reason": "Kastad klubba",
-    "id": "pun-1770058172054-md10ow2dc"
-  },
-  {
     "playerId": "player-1770056962790-501c23my9",
-    "tournamentId": "round-1770056793241-j8mzgeuzr",
-    "amount": 100,
-    "reason": "Sen till starttid",
-    "id": "pun-1770058188021-ytavk90eq"
+    "tournamentId": "round-1773255982088-bmnemsvv7",
+    "amount": 200,
+    "reason": "Kort om damtee ",
+    "id": "pun-1777223872319-vx898lra6"
   }
 ]
