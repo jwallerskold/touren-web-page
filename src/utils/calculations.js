@@ -1,5 +1,5 @@
 // Participation points per tournament
-const PARTICIPATION_POINTS = 2
+import { PARTICIPATION_POINTS } from './params'
 
 // Calculate leaderboard from results
 export function calculateLeaderboard(players, results, tournaments) {

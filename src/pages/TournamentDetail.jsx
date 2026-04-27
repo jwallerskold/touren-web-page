@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useData } from '../context/DataContext'
 import { formatDate } from '../utils/calculations'
+import { PARTICIPATION_POINTS } from '../utils/params'
 
 export default function TournamentDetail() {
   const { id } = useParams()
@@ -96,13 +97,12 @@ export default function TournamentDetail() {
                 <tr>
                   <th className="px-4 py-3 text-left">Pos</th>
                   <th className="px-4 py-3 text-left">Spelare</th>
+                  <th className="px-4 py-3 text-center">Poäng</th>
                   <th className="px-4 py-3 text-center">Brutto</th>
-                  <th className="px-4 py-3 text-center hidden sm:table-cell">Putts</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell">FIR</th>
                   <th className="px-4 py-3 text-center hidden sm:table-cell">GIR</th>
-                  <th className="px-4 py-3 text-center">Poäng runda</th>
-                  <th className="px-4 py-3 text-center">Tour-poäng</th>
-                  <th className="px-4 py-3 text-center">Deltagar-poäng</th>
+                  <th className="px-4 py-3 text-center hidden sm:table-cell">Putts</th>
+                  <th className="px-4 py-3 text-center">Tourpoäng</th>
                 </tr>
               </thead>
               <tbody>
@@ -132,10 +132,10 @@ export default function TournamentDetail() {
                       </Link>
                     </td>
                     <td className="px-4 py-3 text-center text-gray-600">
-                      {result.grossScore}
+                      {result.roundPoints || '-'}
                     </td>
-                    <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
-                      {result.putts || '-'}
+                    <td className="px-4 py-3 text-center text-gray-600">
+                      {result.grossScore}
                     </td>
                     <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
                       {result.fairwaysHit != null ? `${(100*(result.fairwaysHit / tournament.availableFairways)).toFixed(0)}%` : '-'}
@@ -143,14 +143,11 @@ export default function TournamentDetail() {
                     <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
                       {result.greensInRegulation != null ? `${(100*(result.greensInRegulation / 18)).toFixed(0)}%` : '-'}
                     </td>
-                    <td className="px-4 py-3 text-center text-gray-600">
-                      {result.roundPoints || '-'}
+                    <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                      {result.putts || '-'}
                     </td>
                     <td className="px-4 py-3 text-center font-bold text-green-700">
-                      {result.points}
-                    </td>
-                    <td className="px-4 py-3 text-center font-bold text-green-700">
-                      {2}
+                      {result.points != 0 ? `${result.points}+${PARTICIPATION_POINTS}` : `${PARTICIPATION_POINTS}`}
                     </td>
                   </tr>
                 ))}

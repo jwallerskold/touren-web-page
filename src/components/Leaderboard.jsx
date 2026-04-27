@@ -59,16 +59,16 @@ export default function Leaderboard({ limit = null }) {
             </div>
             <div className="grid grid-cols-3 gap-2 text-center text-sm">
               <div className="bg-gray-50 rounded p-2">
-                <p className="text-gray-500 text-xs">Brutto</p>
-                <p className="font-semibold">{player.avgBrutto}</p>
+                <p className="text-gray-500 text-xs">FIR/r</p>
+                <p className="font-semibold">{player.fairwaysPct !== '-' ? `${player.fairwaysPct}%` : '-'}</p>
               </div>
               <div className="bg-gray-50 rounded p-2">
-                <p className="text-gray-500 text-xs">Putts</p>
-                <p className="font-semibold">{player.avgPutts}</p>
-              </div>
-              <div className="bg-gray-50 rounded p-2">
-                <p className="text-gray-500 text-xs">GIR</p>
+                <p className="text-gray-500 text-xs">GIR/r</p>
                 <p className="font-semibold">{player.girPct !== '-' ? `${player.girPct}%` : '-'}</p>
+              </div>
+              <div className="bg-gray-50 rounded p-2">
+                <p className="text-gray-500 text-xs">Putts/r</p>
+                <p className="font-semibold">{player.avgPutts !== '-' ? `${player.avgPutts}` : '-'}</p>
               </div>
             </div>
           </Link>
@@ -85,12 +85,12 @@ export default function Leaderboard({ limit = null }) {
                 <th className="px-3 py-3 text-left">Spelare</th>
                 <th className="px-3 py-3 text-center" title="Bästa 4 tävlingspoäng + deltagandebonus">Tourpoäng</th>
                 <th className="px-3 py-3 text-center">Rundor</th>
-                <th className="px-3 py-3 text-center">Brutto</th>
-                <th className="px-3 py-3 text-center hidden lg:table-cell">Putts</th>
-                <th className="px-3 py-3 text-center hidden lg:table-cell">FW %</th>
-                <th className="px-3 py-3 text-center hidden lg:table-cell">GIR %</th>
-                <th className="px-3 py-3 text-center hidden xl:table-cell">Snitt Poäng</th>
-                <th className="px-3 py-3 text-center hidden xl:table-cell">Bästa Poäng</th>
+                <th className="px-3 py-3 text-center hidden xl:table-cell">Poäng/r</th>
+                <th className="px-3 py-3 text-center">Brutto/r</th>
+                <th className="px-3 py-3 text-center hidden lg:table-cell">FIR/r</th>
+                <th className="px-3 py-3 text-center hidden lg:table-cell">Putts/r</th>
+                <th className="px-3 py-3 text-center hidden lg:table-cell">GIR/r</th>
+                <th className="px-3 py-3 text-center hidden xl:table-cell">Bästa Rond</th>
               </tr>
             </thead>
             <tbody>
@@ -117,11 +117,11 @@ export default function Leaderboard({ limit = null }) {
                   <td className="px-3 py-3 text-center text-gray-600">
                     {player.roundsPlayed}
                   </td>
+                  <td className="px-3 py-3 text-center hidden xl:table-cell text-gray-600">
+                    {player.avgRoundPoints}
+                  </td>
                   <td className="px-3 py-3 text-center text-gray-600">
                     {player.avgBrutto}
-                  </td>
-                  <td className="px-3 py-3 text-center hidden lg:table-cell text-gray-600">
-                    {player.avgPutts}
                   </td>
                   <td className="px-3 py-3 text-center hidden lg:table-cell text-gray-600">
                     {player.fairwaysPct !== '-' ? `${player.fairwaysPct}%` : '-'}
@@ -129,8 +129,8 @@ export default function Leaderboard({ limit = null }) {
                   <td className="px-3 py-3 text-center hidden lg:table-cell text-gray-600">
                     {player.girPct !== '-' ? `${player.girPct}%` : '-'}
                   </td>
-                  <td className="px-3 py-3 text-center hidden xl:table-cell text-gray-600">
-                    {player.avgRoundPoints}
+                  <td className="px-3 py-3 text-center hidden lg:table-cell text-gray-600">
+                    {player.avgPutts}
                   </td>
                   <td className="px-3 py-3 text-center hidden xl:table-cell text-gray-600">
                     {player.bestRoundPoints}

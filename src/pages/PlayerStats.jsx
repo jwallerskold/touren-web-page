@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useData } from '../context/DataContext'
 import { getPlayerStats, calculateLeaderboard, formatDate } from '../utils/calculations'
+import { PARTICIPATION_POINTS } from '../utils/params'
 
 export default function PlayerStats() {
   const { playerId } = useParams()
@@ -78,7 +79,7 @@ export default function PlayerStats() {
           <p className="text-3xl font-bold text-gray-800">{playerStats.roundsPlayed}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide">Snitt Brutto</p>
+          <p className="text-sm text-gray-500 uppercase tracking-wide">Brutto</p>
           <p className="text-3xl font-bold text-gray-800">{playerStats.avgBrutto}</p>
         </div>
         <div className="bg-white rounded-xl shadow-md p-6 text-center">
@@ -114,11 +115,11 @@ export default function PlayerStats() {
                   <tr>
                     <th className="px-4 py-3 text-left">Tävling</th>
                     <th className="px-4 py-3 text-center">Pos</th>
-                    <th className="px-4 py-3 text-center">Brutto</th>
-                    <th className="px-4 py-3 text-center hidden sm:table-cell">Putts</th>
-                    <th className="px-4 py-3 text-center hidden sm:table-cell">FW</th>
-                    <th className="px-4 py-3 text-center hidden sm:table-cell">GIR</th>
                     <th className="px-4 py-3 text-center">Poäng runda</th>
+                    <th className="px-4 py-3 text-center">Brutto</th>
+                    <th className="px-4 py-3 text-center hidden sm:table-cell">FIR</th>
+                    <th className="px-4 py-3 text-center hidden sm:table-cell">GIR</th>
+                    <th className="px-4 py-3 text-center hidden sm:table-cell">Putts</th>
                     <th className="px-4 py-3 text-center">Tour-poäng</th>
                   </tr>
                 </thead>
@@ -145,10 +146,10 @@ export default function PlayerStats() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-center text-gray-600">
-                        {result.grossScore}
+                        {result.roundPoints || '-'}
                       </td>
-                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
-                        {result.putts || '-'}
+                      <td className="px-4 py-3 text-center text-gray-600">
+                        {result.grossScore}
                       </td>
                       <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
                         {result.fairwaysHit != null ? `${(100*(result.fairwaysHit / result.availableTournamentFairways)).toFixed(0)}%` : '-'}
@@ -156,11 +157,11 @@ export default function PlayerStats() {
                       <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
                         {result.greensInRegulation != null ? `${(100*(result.greensInRegulation / 18)).toFixed(0)}%` : '-'}
                       </td>
-                      <td className="px-4 py-3 text-center text-gray-600">
-                        {result.roundPoints || '-'}
+                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                        {result.putts || '-'}
                       </td>
                       <td className="px-4 py-3 text-center font-bold text-green-700">
-                        {result.points}
+                        {`${result.points}+${PARTICIPATION_POINTS}`}
                       </td>
                     </tr>
                   ))}
