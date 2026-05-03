@@ -2,13 +2,19 @@
 import { PARTICIPATION_POINTS } from './params'
 
 // Calculate leaderboard from results
-export function calculateLeaderboard(players, results, tournaments) {
+export function calculateLeaderboard(
+  players,
+  results,
+  tournaments,
+  sortBy = 'bestFourTourPoints',
+  sortOrder = 'desc'
+) {
   const playerStats = players.map(player => {
     const playerResults = results.filter(r => r.playerId === player.id)
 
-    // Tour points (for standings)
-    const totalTourPoints = playerResults.reduce((sum, r) => sum + r.points, 0)
-    const sortedTourPoints = playerResults.map(r => r.points).sort((a, b) => b - a)
+    // --- TOUR POINTS ---
+    const totalTourPoints = playerResults.reduce((sum, r) => sum + (r.points || 0), 0)
+    const sortedTourPoints = playerResults.map(r => r.points || 0).sort((a, b) => b - a)
     const bestFourBasePoints = sortedTourPoints.slice(0, 4).reduce((sum, p) => sum + p, 0)
 
     // Participation points (for all tournaments participated)
@@ -22,43 +28,43 @@ export function calculateLeaderboard(players, results, tournaments) {
     const roundsPlayed = playerResults.length
     const roundPointsArray = playerResults.map(r => r.roundPoints || 0)
     const avgRoundPoints = roundsPlayed > 0
-      ? (roundPointsArray.reduce((sum, p) => sum + p, 0) / roundsPlayed).toFixed(1)
-      : '-'
-    const bestRoundPoints = roundsPlayed > 0 && roundPointsArray.some(p => p > 0)
+      ? roundPointsArray.reduce((sum, p) => sum + p, 0) / roundsPlayed
+      : null
+
+    const bestRoundPoints = roundPointsArray.length > 0
       ? Math.max(...roundPointsArray)
-      : '-'
+      : null
 
-    // Brutto (gross score)
+    // --- BRUTTO ---
     const grossScores = playerResults.map(r => r.grossScore).filter(s => s != null)
-    const avgBrutto = grossScores.length > 0
-      ? (grossScores.reduce((sum, s) => sum + s, 0) / grossScores.length).toFixed(1)
-      : '-'
 
-    // Putts per round (average)
+    const avgBrutto = grossScores.length > 0
+      ? grossScores.reduce((sum, s) => sum + s, 0) / grossScores.length
+      : null
+
+    // --- PUTTS ---
     const puttsArray = playerResults.map(r => r.putts).filter(p => p != null)
     const avgPutts = puttsArray.length > 0
-      ? (puttsArray.reduce((sum, p) => sum + p, 0) / puttsArray.length).toFixed(1)
-      : '-'
+      ? puttsArray.reduce((sum, p) => sum + p, 0) / puttsArray.length
+      : null
 
-    // Fairways hit (percentage) - assuming 14 fairways per round
-    const availableFairways = results.filter(r => r.playerId === player.id)
-    .map(r => {
-      const tournament = tournaments.find(t => t.id === r.tournamentId)
-      return {
-        availableTournamentFairways: tournament?.availableFairways || 0,
-      }
-    }).reduce((sum, r) => sum + (r.availableTournamentFairways || 0), 0)
+    // --- FAIRWAYS ---
+    const availableFairways = playerResults
+      .map(r => {
+        const tournament = tournaments.find(t => t.id === r.tournamentId)
+        return tournament?.availableFairways || 0
+      }).reduce((sum, val) => sum + val, 0)
 
-    const fairwaysArray = playerResults.map(r => r.fairwaysHit).filter(f => f != null)    
-    const fairwaysPct = fairwaysArray.length > 0
-    ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / (availableFairways)) * 100)
-    : '-'
+    const fairwaysArray = playerResults.map(r => r.fairwaysHit).filter(f => f != null)
+    const fairwaysPct = fairwaysArray.length > 0 && availableFairways > 0
+        ? Math.round((fairwaysArray.reduce((sum, f) => sum + f, 0) / availableFairways) * 100)
+        : null
 
-    // Greens in regulation (percentage) - assuming 18 greens per round
+    // --- GIR ---
     const girArray = playerResults.map(r => r.greensInRegulation).filter(g => g != null)
     const girPct = girArray.length > 0
-      ? Math.round((girArray.reduce((sum, g) => sum + g, 0) / (girArray.length * 18)) * 100)
-      : '-'
+        ? Math.round((girArray.reduce((sum, g) => sum + g, 0) / (girArray.length * 18)) * 100)
+        : null
 
     // Balls in water total (for fun)
     const ballsInWaterArray = playerResults.map(r => r.ballsInWater).filter(b => b != null)
@@ -82,11 +88,28 @@ export function calculateLeaderboard(players, results, tournaments) {
     }
   })
 
-  // Sort by best four tour points descending (then by total tour points as tiebreaker)
+  // --- SORTING ---
   return playerStats.sort((a, b) => {
-    if (b.bestFourTourPoints !== a.bestFourTourPoints) {
-      return b.bestFourTourPoints - a.bestFourTourPoints
-    }
+    let aValue = a[sortBy]
+    let bValue = b[sortBy]
+
+    const aMissing = aValue == null
+    const bMissing = bValue == null
+
+    // Always push missing values to the bottom
+    if (aMissing && !bMissing) return 1
+    if (!aMissing && bMissing) return -1
+    if (aMissing && bMissing) return 0
+
+    // Normal sorting
+    const primary =
+      sortOrder === 'asc'
+        ? aValue - bValue
+        : bValue - aValue
+
+    if (primary !== 0) return primary
+
+    // fallback
     return b.totalTourPoints - a.totalTourPoints
   })
 }
