@@ -106,11 +106,11 @@
       "availableFairways": 15
     },
     {
-      "name": "Touren #2",
-      "course": "TBD",
+      "name": "Touren 2 - Ingarö Championship",
+      "course": "Ingarö GK",
       "date": "2026-05-31",
-      "description": "Host: Johan och Eric",
-      "imageUrl": "\\images\\courses\\course_tbd.png",
+      "description": "Touren rullar vidare till Ingarö Golfklubb där säsongens andra deltävling väntar.\n\nJohan och Eric står som värdar och utlovar en dag där både självförtroende och bollförråd sätts på prov.\n\nEfter premiären på Waxholm börjar tabellen ta form, och nu gäller det att visa att den starka starten inte bara var resultatet av medvind, generösa studs och kreativ scorekortsföring.\n\nFrågan är vilka som bygger vidare på formen – och vilka som redan nu börjar prata om att “det är en lång säsong” efter första dubbelbogeyn.",
+      "imageUrl": "\\images\\courses\\ingaro.jpg",
       "isFinale": false,
       "order": 2,
       "year": 2026,
