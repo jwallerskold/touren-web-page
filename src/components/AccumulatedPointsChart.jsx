@@ -9,8 +9,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from 'recharts'
-
 // Color palette for different players
 const COLORS = [
   '#16a34a', // green
@@ -25,6 +25,7 @@ const COLORS = [
   '#6366f1', // indigo
 ]
 
+
 export default function AccumulatedPointsChart() {
   const { players, filteredResults: results, filteredTournaments: tournaments } = useData()
 
@@ -37,6 +38,7 @@ export default function AccumulatedPointsChart() {
   }
 
   const chartData = calculateAccumulatedPoints(players, results, tournaments)
+  const lastIndex = chartData.length - 1
 
   // Get players who have at least one result
   const playersWithResults = players.filter(player =>
@@ -46,35 +48,51 @@ export default function AccumulatedPointsChart() {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h3 className="text-lg font-bold text-gray-800 mb-4">Ackumulerade Tour-poäng per spelare</h3>
-      <div className="h-80">
+      <div className="h-[550px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chartData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            margin={{ top: 5, right: 130, left: 20, bottom: 100 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="tournament"
               tick={{ fontSize: 12 }}
-              angle={-45}
+              angle={-30}
               textAnchor="end"
-              height={80}
+              height={20}
+              dy={35}
             />
             <YAxis
               label={{ value: 'Tour-poäng', angle: -90, position: 'insideLeft' }}
             />
-            <Tooltip />
-            <Legend />
             {playersWithResults.map((player, index) => (
               <Line
-                key={player.id}
-                type="monotone"
-                dataKey={player.name}
-                stroke={COLORS[index % COLORS.length]}
-                strokeWidth={2}
-                dot={{ r: 4 }}
-                activeDot={{ r: 6 }}
+              key={player.id}
+              type="monotone"
+              dataKey={player.name}
+              stroke={COLORS[index % COLORS.length]}
+              strokeWidth={2}
+              dot={false}
+            >
+              <LabelList
+                content={({ x, y, index: i }) => {
+                  if (i !== lastIndex) return null
+
+                  return (
+                    <text
+                      x={x + 8}
+                      y={y}
+                      fill={COLORS[index % COLORS.length]}
+                      fontSize={12}
+                      alignmentBaseline="middle"
+                    >
+                      {player.name}
+                    </text>
+                  )
+                }}
               />
+            </Line>
             ))}
           </LineChart>
         </ResponsiveContainer>

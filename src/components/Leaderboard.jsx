@@ -29,7 +29,21 @@ export default function Leaderboard({ limit = null }) {
     return sortOrder === 'desc' ? ' ↓' : ' ↑'
   }
 
-  // ✅ Desktop leaderboard (sorted)
+  // =========================
+  // FORMATTERS (NEW CLEAN VERSION)
+  // =========================
+  const formatPct = (value) =>
+    value != null ? `${Math.round(value)}%` : '-'
+
+  const formatNum1 = (value) =>
+    value != null ? Number(value).toFixed(1) : '-'
+
+  const formatInt = (value) =>
+    value != null ? Math.round(value) : '-'
+
+  // =========================
+  // LEADERBOARD DATA
+  // =========================
   let leaderboard = calculateLeaderboard(
     players,
     results,
@@ -38,7 +52,6 @@ export default function Leaderboard({ limit = null }) {
     sortOrder
   )
 
-  // ✅ Mobile leaderboard (default sort only)
   const mobileLeaderboard = calculateLeaderboard(
     players,
     results,
@@ -57,11 +70,6 @@ export default function Leaderboard({ limit = null }) {
     )
   }
 
-  const format = (value, suffix = '') =>
-    value != null
-      ? `${value.toFixed ? value.toFixed(1) : value}${suffix}`
-      : '-'
-
   const getRankStyle = (index) => {
     if (index === 0) return 'bg-yellow-400 text-yellow-900'
     if (index === 1) return 'bg-gray-300 text-gray-700'
@@ -71,7 +79,7 @@ export default function Leaderboard({ limit = null }) {
 
   return (
     <>
-      {/* ✅ MOBILE CARD LAYOUT (no sorting) */}
+      {/* MOBILE */}
       <div className="md:hidden space-y-3">
         {mobileLeaderboard.map((player, index) => (
           <Link
@@ -92,7 +100,9 @@ export default function Leaderboard({ limit = null }) {
                     {player.name.charAt(0)}
                   </div>
                 )}
-                <span className={`absolute -bottom-1 -right-1 inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${getRankStyle(index)}`}>
+                <span
+                  className={`absolute -bottom-1 -right-1 inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${getRankStyle(index)}`}
+                >
                   {index + 1}
                 </span>
               </div>
@@ -116,21 +126,21 @@ export default function Leaderboard({ limit = null }) {
               <div className="bg-gray-50 rounded p-2">
                 <p className="text-gray-500 text-xs">FIR/r</p>
                 <p className="font-semibold">
-                  {format(player.fairwaysPct, '%')}
+                  {formatPct(player.fairwaysPct)}
                 </p>
               </div>
 
               <div className="bg-gray-50 rounded p-2">
                 <p className="text-gray-500 text-xs">GIR/r</p>
                 <p className="font-semibold">
-                  {format(player.girPct, '%')}
+                  {formatPct(player.girPct)}
                 </p>
               </div>
 
               <div className="bg-gray-50 rounded p-2">
                 <p className="text-gray-500 text-xs">Putts/r</p>
                 <p className="font-semibold">
-                  {format(player.avgPutts)}
+                  {formatNum1(player.avgPutts)}
                 </p>
               </div>
             </div>
@@ -138,7 +148,7 @@ export default function Leaderboard({ limit = null }) {
         ))}
       </div>
 
-      {/* ✅ DESKTOP TABLE (sortable) */}
+      {/* DESKTOP */}
       <div className="hidden md:block bg-white rounded-lg shadow-md overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -147,35 +157,59 @@ export default function Leaderboard({ limit = null }) {
                 <th className="px-3 py-3 text-left">#</th>
                 <th className="px-3 py-3 text-left">Spelare</th>
 
-                <th onClick={() => handleSort('bestFourTourPoints')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('bestFourTourPoints')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   Tourpoäng{renderArrow('bestFourTourPoints')}
                 </th>
 
-                <th onClick={() => handleSort('roundsPlayed')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('roundsPlayed')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   Rundor{renderArrow('roundsPlayed')}
                 </th>
 
-                <th onClick={() => handleSort('avgRoundPoints')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('avgRoundPoints')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   Poäng/r{renderArrow('avgRoundPoints')}
                 </th>
 
-                <th onClick={() => handleSort('avgBrutto')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('avgBrutto')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   Brutto/r{renderArrow('avgBrutto')}
                 </th>
 
-                <th onClick={() => handleSort('fairwaysPct')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('fairwaysPct')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   FIR/r{renderArrow('fairwaysPct')}
                 </th>
 
-                <th onClick={() => handleSort('girPct')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('girPct')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   GIR/r{renderArrow('girPct')}
                 </th>
 
-                <th onClick={() => handleSort('avgPutts')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('avgPutts')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   Putts/r{renderArrow('avgPutts')}
                 </th>
 
-                <th onClick={() => handleSort('bestRoundPoints')} className="px-3 py-3 text-center cursor-pointer hover:bg-green-700">
+                <th
+                  onClick={() => handleSort('bestRoundPoints')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
                   Bästa Rond{renderArrow('bestRoundPoints')}
                 </th>
               </tr>
@@ -190,13 +224,18 @@ export default function Leaderboard({ limit = null }) {
                   }`}
                 >
                   <td className="px-3 py-3">
-                    <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${getRankStyle(index)}`}>
+                    <span
+                      className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${getRankStyle(index)}`}
+                    >
                       {index + 1}
                     </span>
                   </td>
 
                   <td className="px-3 py-3">
-                    <Link to={`/stats/${player.id}`} className="hover:text-green-700">
+                    <Link
+                      to={`/stats/${player.id}`}
+                      className="hover:text-green-700"
+                    >
                       {player.name}
                     </Link>
                   </td>
@@ -206,31 +245,31 @@ export default function Leaderboard({ limit = null }) {
                   </td>
 
                   <td className="px-3 py-3 text-center">
-                    {player.roundsPlayed}
+                    {formatInt(player.roundsPlayed)}
                   </td>
 
                   <td className="px-3 py-3 text-center">
-                    {format(player.avgRoundPoints)}
+                    {formatNum1(player.avgRoundPoints)}
                   </td>
 
                   <td className="px-3 py-3 text-center">
-                    {format(player.avgBrutto)}
+                    {formatNum1(player.avgBrutto)}
                   </td>
 
                   <td className="px-3 py-3 text-center">
-                    {format(player.fairwaysPct, '%')}
+                    {formatPct(player.fairwaysPct)}
                   </td>
 
                   <td className="px-3 py-3 text-center">
-                    {format(player.girPct, '%')}
+                    {formatPct(player.girPct)}
                   </td>
 
                   <td className="px-3 py-3 text-center">
-                    {format(player.avgPutts)}
+                    {formatNum1(player.avgPutts)}
                   </td>
 
                   <td className="px-3 py-3 text-center">
-                    {format(player.bestRoundPoints)}
+                    {formatNum1(player.bestRoundPoints)}
                   </td>
                 </tr>
               ))}
