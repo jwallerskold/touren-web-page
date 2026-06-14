@@ -58,7 +58,7 @@
   {
     "playerId": "player-1770056987698-fww5ha28c",
     "tournamentId": "round-1773255982088-bmnemsvv7",
-    "amount": 50,
+    "amount": 100,
     "reason": "Sen till första tee",
     "id": "pun-1777314428893-oa97wiixp"
   },
@@ -89,5 +89,26 @@
     "amount": 100,
     "reason": "Damtee",
     "id": "pun-1777314733023-sgcblfeyy"
+  },
+  {
+    "playerId": "player-1773255887283-vcx0tkrfm",
+    "tournamentId": "round-1773256045690-0nx4wvgcq",
+    "amount": 50,
+    "reason": "Damtee",
+    "id": "pun-1777314733023-jndhuiast"
+  },
+  {
+    "playerId": "player-1770056941011-zji1q8fo1",
+    "tournamentId": "round-1773256045690-0nx4wvgcq",
+    "amount": 100,
+    "reason": "Sen till första tee",
+    "id": "pun-1777314733023-jnhhyfdqww"
+  },
+  {
+    "playerId": "player-1773255894548-x3d3jz86p",
+    "tournamentId": "round-1773256045690-0nx4wvgcq",
+    "amount": 100,
+    "reason": "Kasta klubba",
+    "id": "pun-1777314733023-aasephbod"
   }
 ]
