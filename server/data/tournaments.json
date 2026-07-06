@@ -48,15 +48,27 @@
     "availableFairways": 14
   },
   {
-    "name": "Touren #5",
-    "course": "TBD",
-    "date": "2026-08-28",
-    "description": "Host: Philip och Adam",
-    "imageUrl": "\\images\\courses\\course_tbd.png",
+    "name": "Touren 5.1 - Sundsta Classic",
+    "course": "Sundsta GK",
+    "date": "2026-08-29",
+    "description": "Sommaren lider mot sitt slut. Piña coladas på stranden byts ut mot regn och rusk. Deppigt, menar vissa. Äntligen, tänker tourens medlemmar – touren är tillbaka! Fjolårets Super Saturday har fått ny form och spelas i år som en Super Weekend. Philip Melin står för värdskapet och har varit vänlig nog att låta oss värma upp på Norrtäljes pärla – Sundsta Golfklubb. För den som inte redan längtar alldeles för mycket till morgondagens golf eller kvällens Secreto finns det tunga, och för somliga, livsviktiga tourpoäng att hämta. Svinga lugnt.",
+    "imageUrl": "\\images\\courses\\sundsta.jpg",
     "isFinale": false,
     "order": 5,
     "year": 2026,
     "id": "round-1773256163981-69frqglkv",
+    "availableFairways": 13
+  },
+  {
+    "name": "Touren 5.2 - Ullna Trophy",
+    "course": "Ullna GK",
+    "date": "2026-08-30",
+    "description": "Det har blivit dags att slipa på allt – sving, strategi och självbild – när Super Weekend fortsätter med golf i absolut toppklass på Ullna Golf & Country Club. En bana där varje slag är ett test, och varje misstag en omedelbar konsekvens.\n\nVar dock inte allt för oroliga. Tourens medlemmar har under året bevisat att banan inte bara är scorebar, utan även HIO-kompatibel. \n\nPhilip välkomnar till dag två av 2026 Super Weekend.",
+    "imageUrl": "\\images\\courses\\ullna2.jpg",
+    "isFinale": false,
+    "order": 5,
+    "year": 2026,
+    "id": "round-1773256163981-69jnfhuydb",
     "availableFairways": 14
   },
   {
