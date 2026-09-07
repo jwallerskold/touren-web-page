@@ -67,10 +67,13 @@ export function calculateLeaderboard(
         : null
 
     // Balls in water total (for fun)
-    const ballsInWaterArray = playerResults.map(r => r.ballsInWater).filter(b => b != null)
-    const totalBallsInWater = ballsInWaterArray.length > 0
-      ? ballsInWaterArray.reduce((sum, b) => sum + b, 0)
-      : '-'
+    const ballsInWaterArray = playerResults
+    .map(r => r.ballsInWater)
+    .filter(b => b != null)
+
+  const totalBallsInWater = ballsInWaterArray.length > 0
+    ? Math.round(ballsInWaterArray.reduce((sum, b) => sum + b, 0))
+    : '-'
 
     return {
       ...player,
@@ -85,6 +88,7 @@ export function calculateLeaderboard(
       avgPutts,
       fairwaysPct,
       girPct,
+      totalBallsInWater
     }
   })
 
@@ -224,6 +228,8 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
 
   const totalPunishmentFees = playerPunishments.reduce((sum, p) => sum + p.amount, 0)
 
+  const totalBallsInWater = Math.round(playerResults.reduce((sum, r) => sum + (r.ballsInWater || 0), 0))
+
   return {
     ...player,
     totalTourPoints,
@@ -238,6 +244,7 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
     fairwaysPct,
     girPct,
     totalPunishmentFees,
+    totalBallsInWater,
     results: playerResults,
     punishments: playerPunishments,
   }

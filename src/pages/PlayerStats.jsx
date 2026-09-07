@@ -104,7 +104,7 @@ export default function PlayerStats() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2 gap-4">
         {/* Results History */}
         <section>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Rundhistorik</h2>
@@ -126,7 +126,7 @@ export default function PlayerStats() {
                 <tbody>
                   {playerStats.results.map(result => (
                     <tr key={result.id} className="border-b border-gray-100">
-                      <td className="px-4 py-3">
+                      <td className="px-2 py-3">
                         <Link
                           to={`/tournaments/${result.tournamentId}`}
                           className="hover:text-green-700"
@@ -135,7 +135,7 @@ export default function PlayerStats() {
                           <p className="text-sm text-gray-500">{formatDate(result.tournamentDate)}</p>
                         </Link>
                       </td>
-                      <td className="px-4 py-3 text-center">
+                      <td className="px-2 py-3 text-center">
                         <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${
                           result.position === 1 ? 'bg-yellow-400 text-yellow-900' :
                           result.position === 2 ? 'bg-gray-300 text-gray-700' :
@@ -145,22 +145,22 @@ export default function PlayerStats() {
                           {result.position}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-center text-gray-600">
+                      <td className="px-2 py-3 text-center text-gray-600">
                         {result.roundPoints || '-'}
                       </td>
-                      <td className="px-4 py-3 text-center text-gray-600">
+                      <td className="px-2 py-3 text-center text-gray-600">
                         {result.grossScore}
                       </td>
-                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                      <td className="px-2 py-3 text-center hidden sm:table-cell text-gray-600">
                         {result.fairwaysHit != null ? `${(100*(result.fairwaysHit / result.availableTournamentFairways)).toFixed(0)}%` : '-'}
                       </td>
-                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                      <td className="px-2 py-3 text-center hidden sm:table-cell text-gray-600">
                         {result.greensInRegulation != null ? `${(100*(result.greensInRegulation / 18)).toFixed(0)}%` : '-'}
                       </td>
-                      <td className="px-4 py-3 text-center hidden sm:table-cell text-gray-600">
+                      <td className="px-2 py-3 text-center hidden sm:table-cell text-gray-600">
                         {result.putts || '-'}
                       </td>
-                      <td className="px-4 py-3 text-center font-bold text-green-700">
+                      <td className="px-2 py-3 text-center font-bold text-green-700">
                         {`${result.points}+${PARTICIPATION_POINTS}`}
                       </td>
                     </tr>

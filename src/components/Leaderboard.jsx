@@ -122,7 +122,7 @@ export default function Leaderboard({ limit = null }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 text-center text-sm">
+            <div className="grid grid-cols-4 gap-2 text-center text-sm">
               <div className="bg-gray-50 rounded p-2">
                 <p className="text-gray-500 text-xs">FIR/r</p>
                 <p className="font-semibold">
@@ -141,6 +141,13 @@ export default function Leaderboard({ limit = null }) {
                 <p className="text-gray-500 text-xs">Putts/r</p>
                 <p className="font-semibold">
                   {formatNum1(player.avgPutts)}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 rounded p-2">
+                <p className="text-gray-500 text-xs">BIV</p>
+                <p className="font-semibold">
+                  {formatInt(player.totalBallsInWater)}
                 </p>
               </div>
             </div>
@@ -212,6 +219,13 @@ export default function Leaderboard({ limit = null }) {
                 >
                   Bästa Rond{renderArrow('bestRoundPoints')}
                 </th>
+
+                <th
+                  onClick={() => handleSort('totalBallsInWater')}
+                  className="px-3 py-3 text-center cursor-pointer hover:bg-green-700"
+                >
+                  BIV{renderArrow('totalBallsInWater')}
+                </th>
               </tr>
             </thead>
 
@@ -270,6 +284,10 @@ export default function Leaderboard({ limit = null }) {
 
                   <td className="px-3 py-3 text-center">
                     {formatNum1(player.bestRoundPoints)}
+                  </td>
+
+                  <td className="px-3 py-3 text-center">
+                    {formatInt(player.totalBallsInWater)}
                   </td>
                 </tr>
               ))}
