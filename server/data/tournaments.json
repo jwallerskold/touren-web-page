@@ -72,11 +72,11 @@
     "availableFairways": 14
   },
   {
-    "name": "Touren #6",
-    "course": "TBD",
+    "name": "Touren 6 - Ingarö Open",
+    "course": "Ingarö GK - Ängsbanan",
     "date": "2026-09-20",
     "description": "Host: Johan och Adelbert",
-    "imageUrl": "\\images\\courses\\course_tbd.png",
+    "imageUrl": "\\images\\courses\\ingaro_angsbana.jpg",
     "isFinale": false,
     "order": 6,
     "year": 2026,
