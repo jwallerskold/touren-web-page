@@ -71,9 +71,9 @@ export function calculateLeaderboard(
     .map(r => r.ballsInWater)
     .filter(b => b != null)
 
-  const totalBallsInWater = ballsInWaterArray.length > 0
-    ? Math.round(ballsInWaterArray.reduce((sum, b) => sum + b, 0))
-    : '-'
+    const totalBallsInWater = ballsInWaterArray.length > 0
+      ? Math.round(ballsInWaterArray.reduce((sum, b) => sum + b, 0))
+      : null
 
     return {
       ...player,
@@ -228,6 +228,7 @@ export function getPlayerStats(playerId, players, results, punishments, tourname
 
   const totalPunishmentFees = playerPunishments.reduce((sum, p) => sum + p.amount, 0)
 
+  // Add filter to remove null or undefined values before summing balls in water
   const totalBallsInWater = Math.round(playerResults.reduce((sum, r) => sum + (r.ballsInWater || 0), 0))
 
   return {
